@@ -7,13 +7,46 @@
 $page_id = get_option('page_on_front');
 if (!$page_id) return;
 
-$services = get_field('services_list', $page_id);
-if (!$services) return;
+// カスタマイザーまたはACFからデータ取得
+$services = [];
+
+// カスタマイザーから取得を試みる
+$has_customizer_data = false;
+for ($i = 1; $i <= 4; $i++) {
+    $service_title = get_theme_mod("service_{$i}_title");
+    if (!empty($service_title)) {
+        $has_customizer_data = true;
+        $image_id = get_theme_mod("service_{$i}_image");
+        $image_url = $image_id ? wp_get_attachment_url($image_id) : '';
+        $image_meta = $image_id ? wp_get_attachment_metadata($image_id) : null;
+
+        $services[] = [
+            'image' => $image_url ? [
+                'url' => $image_url,
+                'width' => $image_meta['width'] ?? 800,
+                'height' => $image_meta['height'] ?? 600,
+            ] : null,
+            'title' => $service_title,
+            'alt_text' => get_theme_mod("service_{$i}_alt", ''),
+            'link' => get_theme_mod("service_{$i}_link", '#'),
+        ];
+    }
+}
+
+// カスタマイザーにデータがなければACFから取得
+if (!$has_customizer_data) {
+    $acf_services = get_field('services_list', $page_id);
+    if ($acf_services) {
+        $services = $acf_services;
+    }
+}
+
+if (empty($services)) return;
 ?>
 
-<section class="services-section py-16 md:py-24">
+<section class="services-section animate-on-scroll py-16 md:py-24">
     <div class="container mx-auto px-4">
-        <div class="text-center mb-12 fade-in-up">
+        <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">事業内容</h2>
         </div>
 
@@ -21,8 +54,7 @@ if (!$services) return;
             <?php foreach ($services as $index => $service): ?>
                 <a
                     href="<?php echo esc_url($service['link']); ?>"
-                    class="service-card group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 aspect-[4/3] fade-in-up"
-                    style="animation-delay: <?php echo $index * 0.1; ?>s;"
+                    class="service-card card-hover group relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 aspect-[4/3]"
                 >
                     <?php if ($service['image']): ?>
                         <img
@@ -30,6 +62,8 @@ if (!$services) return;
                             alt="<?php echo esc_attr($service['alt_text'] ?: $service['title']); ?>"
                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             loading="lazy"
+                            width="<?php echo esc_attr($service['image']['width']); ?>"
+                            height="<?php echo esc_attr($service['image']['height']); ?>"
                         >
                     <?php endif; ?>
 

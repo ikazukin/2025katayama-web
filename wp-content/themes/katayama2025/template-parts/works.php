@@ -14,16 +14,16 @@ $works_query = new WP_Query([
 if (!$works_query->have_posts()) return;
 ?>
 
-<section class="works-section py-16 md:py-24 bg-gray-50">
+<section class="works-section animate-on-scroll py-16 md:py-24 bg-gray-50">
     <div class="container mx-auto px-4">
-        <div class="text-center mb-12 fade-in-up">
+        <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">施工実績</h2>
             <p class="text-gray-600">これまでの実績をご紹介します</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php while ($works_query->have_posts()): $works_query->the_post(); ?>
-                <article class="works-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow fade-in-up">
+                <article class="works-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                     <a href="<?php the_permalink(); ?>" class="block">
                         <?php if (has_post_thumbnail()): ?>
                             <div class="aspect-[4/3] overflow-hidden">
@@ -56,8 +56,8 @@ if (!$works_query->have_posts()) return;
                             </h3>
 
                             <?php
-                            $year = get_field('completion_year');
-                            $address = get_field('address');
+                            $year = get_field('works_year');
+                            $address = get_field('works_address');
                             if ($year || $address):
                             ?>
                                 <div class="text-sm text-gray-600 space-y-1">
@@ -75,7 +75,7 @@ if (!$works_query->have_posts()) return;
             <?php endwhile; ?>
         </div>
 
-        <div class="text-center mt-12 fade-in-up">
+        <div class="text-center mt-12">
             <a
                 href="<?php echo get_post_type_archive_link('works'); ?>"
                 class="inline-block bg-katayama-blue hover:bg-blue-800 text-white px-8 py-3 rounded-full font-semibold transition-all hover:scale-105"

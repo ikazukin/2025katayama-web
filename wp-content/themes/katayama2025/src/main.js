@@ -1,11 +1,12 @@
 import './style.css';
 import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.min.css';
+import { initAllAnimations } from './animations.js';
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-  // スクロールアニメーション (IntersectionObserver)
-  initScrollAnimations();
+  // GSAP Animations（新規）
+  initAllAnimations();
 
   // ライトボックス
   initLightbox();
@@ -21,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 動画オートプレイ対応
   initVideoAutoplay();
+
+  // Worksフィルター - Issue 21
+  initWorksFilter();
 });
 
 // スクロールアニメーション
@@ -120,6 +124,28 @@ function initVideoAutoplay() {
       // フォールバック: poster画像を表示
     });
   });
+}
+
+// Worksフィルター - Issue 21
+function initWorksFilter() {
+  const categorySelect = document.getElementById('work_category');
+  const yearSelect = document.getElementById('work_year');
+
+  // カテゴリ選択時に自動送信（オプション）
+  if (categorySelect) {
+    categorySelect.addEventListener('change', (e) => {
+      // オプション: 自動送信したい場合はコメントを外す
+      // e.target.form.submit();
+    });
+  }
+
+  // 年度選択時に自動送信（オプション）
+  if (yearSelect) {
+    yearSelect.addEventListener('change', (e) => {
+      // オプション: 自動送信したい場合はコメントを外す
+      // e.target.form.submit();
+    });
+  }
 }
 
 // Lazy loading for images

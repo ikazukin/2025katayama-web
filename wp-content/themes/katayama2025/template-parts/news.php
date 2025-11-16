@@ -14,7 +14,7 @@ $news_posts = new WP_Query([
 if (!$news_posts->have_posts()) return;
 ?>
 
-<section class="news-section py-16 md:py-24">
+<section class="news-section animate-on-scroll py-16 md:py-24">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-8 fade-in-up">
             <h2 class="text-3xl md:text-4xl font-bold">お知らせ</h2>

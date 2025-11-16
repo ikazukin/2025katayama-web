@@ -20,6 +20,8 @@
       ]
     }
   },
-  "postCreateCommand": "php -v && apache2 -v && apt-get update && apt-get install -y curl ca-certificates git && curl -fsSL https://claude.ai/install.sh | bash && echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc",
-  "postStartCommand": "source ~/.bashrc || true"
+  "postCreateCommand": "php -v && apache2 -v && apt-get update && apt-get install -y curl ca-certificates git && curl -fsSL https://claude.ai/install.sh | bash && echo 'export PATH=\"$HOME/.local/bin:$PATH\"' >> ~/.bashrc && echo 'export PATH=\"$HOME/.local/bin:$PATH\"' >> ~/.bash_profile",
+  "remoteEnv": {
+    "PATH": "/root/.local/bin:${containerEnv:PATH}"
+  }
 }

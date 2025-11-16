@@ -7,17 +7,39 @@
 $page_id = get_option('page_on_front');
 if (!$page_id) return;
 
-$title = get_field('recruit_title', $page_id);
-$text = get_field('recruit_text', $page_id);
-$image1 = get_field('recruit_image_1', $page_id);
-$image2 = get_field('recruit_image_2', $page_id);
-$cta_text = get_field('recruit_cta_text', $page_id);
-$cta_link = get_field('recruit_cta_link', $page_id);
+// カスタマイザーまたはACFからデータ取得
+function get_recruit_data($customizer_key, $acf_key, $page_id, $default = '') {
+    $customizer_value = get_theme_mod($customizer_key);
+    return !empty($customizer_value) ? $customizer_value : (get_field($acf_key, $page_id) ?: $default);
+}
+
+function get_recruit_image($customizer_key, $acf_key, $page_id) {
+    $image_id = get_theme_mod($customizer_key);
+    if (!empty($image_id)) {
+        $url = wp_get_attachment_url($image_id);
+        $meta = wp_get_attachment_metadata($image_id);
+        return $url ? [
+            'url' => $url,
+            'width' => $meta['width'] ?? 400,
+            'height' => $meta['height'] ?? 600,
+            'alt' => get_post_meta($image_id, '_wp_attachment_image_alt', true),
+        ] : null;
+    }
+
+    return get_field($acf_key, $page_id);
+}
+
+$title = get_recruit_data('recruit_title', 'recruit_title', $page_id);
+$text = get_recruit_data('recruit_text', 'recruit_text', $page_id);
+$image1 = get_recruit_image('recruit_image_1', 'recruit_image_1', $page_id);
+$image2 = get_recruit_image('recruit_image_2', 'recruit_image_2', $page_id);
+$cta_text = get_recruit_data('recruit_cta_text', 'recruit_cta_text', $page_id);
+$cta_link = get_recruit_data('recruit_cta_link', 'recruit_cta_link', $page_id);
 
 if (!$title && !$text) return;
 ?>
 
-<section class="recruit-section py-16 md:py-24 bg-gradient-to-br from-blue-50 to-blue-100">
+<section class="recruit-section animate-on-scroll py-16 md:py-24 bg-gradient-to-br from-blue-50 to-blue-100">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- テキストエリア -->
@@ -34,14 +56,21 @@ if (!$title && !$text) return;
                     </div>
                 <?php endif; ?>
 
-                <?php if ($cta_link && $cta_text): ?>
+                <!-- 2ボタン対応（新卒/中途） - Issue #16 -->
+                <div class="flex flex-col sm:flex-row gap-4">
                     <a
-                        href="<?php echo esc_url($cta_link); ?>"
-                        class="inline-block bg-katayama-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg"
+                        href="/recruit/shinsotsu/"
+                        class="inline-block bg-katayama-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg text-center"
                     >
-                        <?php echo esc_html($cta_text); ?>
+                        新卒採用情報
                     </a>
-                <?php endif; ?>
+                    <a
+                        href="/recruit/boshu/"
+                        class="inline-block bg-white hover:bg-gray-100 text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg text-center"
+                    >
+                        中途採用情報
+                    </a>
+                </div>
             </div>
 
             <!-- 画像エリア -->
@@ -54,6 +83,8 @@ if (!$title && !$text) return;
                                 alt="<?php echo esc_attr($image1['alt'] ?: '採用情報画像1'); ?>"
                                 class="w-full h-64 md:h-80 object-cover rounded-lg shadow-xl"
                                 loading="lazy"
+                                width="<?php echo esc_attr($image1['width']); ?>"
+                                height="<?php echo esc_attr($image1['height']); ?>"
                             >
                         </div>
                     <?php endif; ?>
@@ -65,6 +96,8 @@ if (!$title && !$text) return;
                                 alt="<?php echo esc_attr($image2['alt'] ?: '採用情報画像2'); ?>"
                                 class="w-full h-64 md:h-80 object-cover rounded-lg shadow-xl"
                                 loading="lazy"
+                                width="<?php echo esc_attr($image2['width']); ?>"
+                                height="<?php echo esc_attr($image2['height']); ?>"
                             >
                         </div>
                     <?php endif; ?>

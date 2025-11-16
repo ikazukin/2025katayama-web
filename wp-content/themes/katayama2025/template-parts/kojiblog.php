@@ -14,7 +14,7 @@ $blog_posts = new WP_Query([
 if (!$blog_posts->have_posts()) return;
 ?>
 
-<section class="kojiblog-section py-16 md:py-24 bg-gray-50">
+<section class="kojiblog-section animate-on-scroll py-16 md:py-24 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-8 fade-in-up">
             <h2 class="text-3xl md:text-4xl font-bold">工事部ブログ</h2>

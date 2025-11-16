@@ -28,6 +28,7 @@ services:
       WORDPRESS_DB_NAME: wordpress
     volumes:
       - ./wp-content:/var/www/html/wp-content
+      - ./Docs:/var/www/html/Docs
       - vscode_server:/var/www/.vscode-server
       # 開発でテーマ/プラグインだけをローカル編集できるようにマウント
     user: "0:0"  # Run as root for development to avoid permission issues
