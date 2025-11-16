@@ -1,0 +1,25 @@
+{
+  "name": "wp-dev (wordpress service)",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "wordpress",
+  "workspaceFolder": "/var/www/html",
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+  "remoteUser": "root",
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "bmewburn.vscode-intelephense-client",
+        "mehedidracula.php-namespace-resolver",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  "postCreateCommand": "php -v && apache2 -v && apt-get update && apt-get install -y curl ca-certificates git && curl -fsSL https://claude.ai/install.sh | bash && echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc",
+  "postStartCommand": "source ~/.bashrc || true"
+}

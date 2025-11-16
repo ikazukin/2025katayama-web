@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS変数 */
+:root {
+  --color-blue: #003366;
+  --color-orange: #FF6B35;
+  --font-family: 'Noto Sans JP', sans-serif;
+}
+
+/* 基本設定 */
+@layer base {
+  body {
+    @apply font-sans text-gray-900 antialiased;
+    font-family: var(--font-family);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  a {
+    @apply transition-colors duration-300;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+}
+
+/* コンテナ */
+@layer components {
+  .container {
+    @apply mx-auto px-4;
+    max-width: 1200px;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-center mb-12;
+  }
+}
+
+/* アニメーション */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scale-in.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ページトップボタン */
+#page-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+#page-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#page-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+/* フッター */
+.footer a {
+  @apply text-gray-300 hover:text-katayama-orange transition-colors;
+}
+
+.accordion-content {
+  transition: max-height 0.3s ease-out;
+}
+
+/* ギャラリーグリッド */
+.gallery-grid {
+  column-gap: 1rem;
+}
+
+.gallery-grid > * {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* ユーティリティ */
+@layer utilities {
+  .text-katayama-blue {
+    color: var(--color-blue);
+  }
+
+  .bg-katayama-blue {
+    background-color: var(--color-blue);
+  }
+
+  .text-katayama-orange {
+    color: var(--color-orange);
+  }
+
+  .bg-katayama-orange {
+    background-color: var(--color-orange);
+  }
+}

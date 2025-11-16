@@ -1,0 +1,22 @@
+/*
+Theme Name: Katayama 2025
+Theme URI: https://github.com/ikazukin/WEB-KTYM
+Author: Katayama
+Author URI: https://katayama-corp.co.jp
+Description: カタヤマ企業サイト用WordPressテーマ - 動画演出 × モダンUI × 高運用性
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.8
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: katayama2025
+Tags: business, construction, responsive, custom-header, custom-menu, featured-images, tailwind
+
+This theme is built with Vite + Tailwind CSS + ACF.
+*/
+
+/*
+ * Note: The actual styles are compiled from src/style.css using Vite + Tailwind.
+ * This file only contains the theme header information for WordPress.
+ */
