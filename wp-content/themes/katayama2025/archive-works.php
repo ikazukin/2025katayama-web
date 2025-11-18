@@ -117,7 +117,7 @@ $works_query = new WP_Query($args);
                             <!-- コンテンツ -->
                             <div class="p-6">
                                 <h2 class="text-xl font-bold mb-3 line-clamp-2">
-                                    <a href="<?php the_permalink(); ?>" class="hover:text-katayama-orange transition-colors">
+                                    <a href="<?php the_permalink(); ?>" class="hover:text-katayama-blue transition-colors">
                                         <?php the_title(); ?>
                                     </a>
                                 </h2>
@@ -149,7 +149,7 @@ $works_query = new WP_Query($args);
                                 </div>
 
                                 <div class="mt-4">
-                                    <a href="<?php the_permalink(); ?>" class="inline-flex items-center gap-2 text-katayama-blue hover:text-katayama-orange transition-colors font-medium">
+                                    <a href="<?php the_permalink(); ?>" class="inline-flex items-center gap-2 text-katayama-blue hover:text-katayama-blue transition-colors font-medium">
                                         詳細を見る
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -191,7 +191,7 @@ $works_query = new WP_Query($args);
                     </div>
                     <h2 class="text-2xl font-bold mb-4 text-gray-600">実績が見つかりませんでした</h2>
                     <p class="text-gray-500 mb-8">条件を変更して再度検索してください</p>
-                    <a href="<?php echo get_post_type_archive_link('works'); ?>" class="inline-block bg-katayama-blue text-white px-6 py-3 rounded-lg hover:bg-katayama-orange transition-colors">
+                    <a href="<?php echo get_post_type_archive_link('works'); ?>" class="inline-block bg-katayama-blue text-white px-6 py-3 rounded-lg hover:bg-katayama-blue transition-colors">
                         すべての実績を見る
                     </a>
                 </div>

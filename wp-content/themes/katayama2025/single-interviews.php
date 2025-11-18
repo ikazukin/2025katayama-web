@@ -63,7 +63,7 @@ get_header();
 
                     <!-- Back to List -->
                     <div class="text-center mt-12 pt-8 border-t border-gray-200">
-                        <a href="<?php echo home_url('/recruit/interview/'); ?>" class="inline-block bg-katayama-orange hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold transition-colors">
+                        <a href="<?php echo home_url('/recruit/interview/'); ?>" class="inline-block bg-katayama-blue hover:bg-orange-600 text-white px-8 py-3 rounded-full font-semibold transition-colors">
                             ← 社員インタビュー一覧に戻る
                         </a>
                     </div>

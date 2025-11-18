@@ -1,0 +1,195 @@
+{
+  "hero_title": "カタヤマの歩み",
+  "hero_subtitle": "1985年の創業から40年。\n株式会社カタヤマの歴史を振り返ります。\n多くの皆様に支えられ、ここまで成長してまいりました。",
+  "timeline": [
+    {
+      "year": "1985",
+      "month": "4",
+      "event_title": "株式会社カタヤマ設立",
+      "event_description": "資本金100万円でスタート",
+      "milestone": true
+    },
+    {
+      "year": "1986",
+      "month": "4",
+      "event_title": "本社移転（大和市下鶴間513）",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "1989",
+      "month": "10",
+      "event_title": "県知事許可 一般建設業許可取得",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "1990",
+      "month": "7",
+      "event_title": "本社移転（大和市下鶴間671）",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "1994",
+      "month": "8",
+      "event_title": "資本金1,000万円に増資",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "1995",
+      "month": "7",
+      "event_title": "大和市つきみ野に新社屋建設",
+      "event_description": "横浜信用金庫様のご支援により実現",
+      "milestone": true
+    },
+    {
+      "year": "1999",
+      "month": "3",
+      "event_title": "資材置場設置",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2001",
+      "month": "7",
+      "event_title": "資本金3,000万円に増資",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2004",
+      "month": "1",
+      "event_title": "文京区千駄木に東京支店開設",
+      "event_description": "",
+      "milestone": true
+    },
+    {
+      "year": "2006",
+      "month": "10",
+      "event_title": "国土交通大臣許可 特定建設業許可取得",
+      "event_description": "取得により規模の大きな仕事も元請け受注できるようになる",
+      "milestone": true
+    },
+    {
+      "year": "2008",
+      "month": "10",
+      "event_title": "一般社団法人マンション計画修繕施工協会 本会員加入",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2009",
+      "month": "7",
+      "event_title": "資本金5,000万円に増資",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2011",
+      "month": "9",
+      "event_title": "ISO9001、ISO14001 認証取得",
+      "event_description": "カタヤマの経営と施工品質が国際的基準をクリアしている証明",
+      "milestone": true
+    },
+    {
+      "year": "2015",
+      "month": "4",
+      "event_title": "資本金1億円に増資",
+      "event_description": "会社設立30周年",
+      "milestone": true
+    },
+    {
+      "year": "2015",
+      "month": "7",
+      "event_title": "東京支店移転（文京区千駄木3-43-3）",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2017",
+      "month": "9",
+      "event_title": "公共インフラ事業部開設",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2018",
+      "month": "9",
+      "event_title": "リフォーム部開設",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2019",
+      "month": "5",
+      "event_title": "本社事業部移転（つきみ野サウスビル3階）",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2019",
+      "month": "9",
+      "event_title": "城所淳之助 代表取締役社長就任",
+      "event_description": "片山省二 代表取締役会長就任",
+      "milestone": true
+    },
+    {
+      "year": "2020",
+      "month": "6",
+      "event_title": "城所由美 代表取締役就任",
+      "event_description": "二人代表体制へ",
+      "milestone": false
+    },
+    {
+      "year": "2020",
+      "month": "10",
+      "event_title": "本社1階リフォーム部ショールームオープン",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2021",
+      "month": "4",
+      "event_title": "事業部制強化 4事業部体制へ",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2022",
+      "month": "12",
+      "event_title": "東京支店新社屋建設（荒川区西日暮里6-49-8）",
+      "event_description": "",
+      "milestone": true
+    },
+    {
+      "year": "2023",
+      "month": "1",
+      "event_title": "プライバシーマーク取得",
+      "event_description": "",
+      "milestone": false
+    },
+    {
+      "year": "2023",
+      "month": "9",
+      "event_title": "社内カンパニー制導入",
+      "event_description": "本社、東京、管理本部の3部門による新体制",
+      "milestone": false
+    },
+    {
+      "year": "2025",
+      "month": "1",
+      "event_title": "仙台営業所開設",
+      "event_description": "東北地域への事業展開を開始",
+      "milestone": true
+    },
+    {
+      "year": "2025",
+      "month": "6",
+      "event_title": "カタヤマ南林間ビル 新事務所開設",
+      "event_description": "横浜信用金庫南林間支店の建物を取得",
+      "milestone": true
+    }
+  ]
+}

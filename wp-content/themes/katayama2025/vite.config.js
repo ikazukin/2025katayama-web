@@ -13,11 +13,13 @@ export default defineConfig({
         main: path.resolve(__dirname, 'src/main.js'),
         style: path.resolve(__dirname, 'src/style.css'),
         blocks: path.resolve(__dirname, 'src/blocks/index.js')
+        // 'works-blocks': Issue #30で@wordpress/scriptsに移行
       },
       output: {
         entryFileNames: 'assets/[name].[hash].js',
         chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
+        assetFileNames: 'assets/[name].[hash].[ext]',
+        inlineDynamicImports: false
       },
       external: [
         '@wordpress/blocks',
@@ -27,16 +29,6 @@ export default defineConfig({
         '@wordpress/element',
         '@wordpress/data'
       ]
-    }
-  },
-  resolve: {
-    alias: {
-      '@wordpress/blocks': 'wp.blocks',
-      '@wordpress/i18n': 'wp.i18n',
-      '@wordpress/block-editor': 'wp.blockEditor',
-      '@wordpress/components': 'wp.components',
-      '@wordpress/element': 'wp.element',
-      '@wordpress/data': 'wp.data'
     }
   },
   server: {

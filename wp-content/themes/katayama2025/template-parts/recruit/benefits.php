@@ -12,7 +12,7 @@ if (!$benefits) return;
 <section id="benefits" class="benefits-section py-16 md:py-24 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12 fade-in-up">
-            <h2 class="text-sm font-semibold text-katayama-orange uppercase tracking-wide mb-4">
+            <h2 class="text-sm font-semibold text-katayama-blue uppercase tracking-wide mb-4">
                 BENEFITS
             </h2>
             <h3 class="text-3xl md:text-4xl font-bold mb-6">

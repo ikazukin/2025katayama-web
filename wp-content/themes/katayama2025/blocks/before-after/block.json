@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "katayama/before-after",
+  "title": "ビフォーアフター比較（施工実績）",
+  "category": "katayama-works",
+  "icon": "image-flip-horizontal",
+  "description": "工事前後の画像を比較スライダーで表示します",
+  "keywords": ["before", "after", "comparison", "slider", "ビフォー", "アフター", "比較"],
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "html": false
+  },
+  "attributes": {
+    "beforeImage": {
+      "type": "object",
+      "default": null
+    },
+    "afterImage": {
+      "type": "object",
+      "default": null
+    },
+    "description": {
+      "type": "string",
+      "default": ""
+    },
+    "startPosition": {
+      "type": "number",
+      "default": 50
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css"
+}

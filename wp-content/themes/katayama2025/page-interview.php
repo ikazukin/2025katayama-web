@@ -65,7 +65,7 @@ get_header();
                                         <?php the_excerpt(); ?>
                                     </div>
 
-                                    <a href="<?php the_permalink(); ?>" class="inline-block mt-4 text-katayama-orange hover:text-orange-600 font-semibold">
+                                    <a href="<?php the_permalink(); ?>" class="inline-block mt-4 text-katayama-blue hover:text-orange-600 font-semibold">
                                         詳しく見る →
                                     </a>
                                 </div>

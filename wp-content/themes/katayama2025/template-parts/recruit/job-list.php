@@ -12,7 +12,7 @@ if (!$recruit_jobs) return;
 <section id="recruit" class="recruit-section py-16 md:py-24 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12 fade-in-up">
-            <h2 class="text-sm font-semibold text-katayama-orange uppercase tracking-wide mb-4">
+            <h2 class="text-sm font-semibold text-katayama-blue uppercase tracking-wide mb-4">
                 RECRUIT
             </h2>
             <h3 class="text-3xl md:text-4xl font-bold mb-6">
@@ -96,7 +96,7 @@ if (!$recruit_jobs) return;
         <div class="text-center mt-12 fade-in-up">
             <a
                 href="#entry-form"
-                class="inline-block bg-katayama-orange hover:bg-orange-600 text-white px-12 py-5 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-xl"
+                class="inline-block bg-katayama-blue hover:bg-orange-600 text-white px-12 py-5 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-xl"
             >
                 エントリーはこちら →
             </a>

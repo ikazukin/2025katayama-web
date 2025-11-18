@@ -2,6 +2,7 @@ import './style.css';
 import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.min.css';
 import { initAllAnimations } from './animations.js';
+import './works-frontend.js';
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {

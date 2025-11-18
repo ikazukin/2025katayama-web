@@ -13,7 +13,7 @@ if (!$jobs) return;
 <section id="work" class="work-section py-16 md:py-24 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12 fade-in-up">
-            <h2 class="text-sm font-semibold text-katayama-orange uppercase tracking-wide mb-4">
+            <h2 class="text-sm font-semibold text-katayama-blue uppercase tracking-wide mb-4">
                 WORK
             </h2>
 

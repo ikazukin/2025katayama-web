@@ -29,7 +29,7 @@
                                 <?php the_excerpt(); ?>
                             </div>
 
-                            <a href="<?php the_permalink(); ?>" class="inline-block mt-4 text-katayama-orange hover:underline">
+                            <a href="<?php the_permalink(); ?>" class="inline-block mt-4 text-katayama-blue hover:underline">
                                 続きを読む →
                             </a>
                         </div>

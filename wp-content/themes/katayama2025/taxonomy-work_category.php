@@ -119,7 +119,7 @@ $works_query = new WP_Query($args);
 
                     <!-- 検索ボタン -->
                     <div class="flex items-end">
-                        <button type="submit" class="w-full bg-katayama-blue text-white px-6 py-2 rounded-lg hover:bg-katayama-orange transition-colors flex items-center justify-center gap-2">
+                        <button type="submit" class="w-full bg-katayama-blue text-white px-6 py-2 rounded-lg hover:bg-katayama-blue transition-colors flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
@@ -191,7 +191,7 @@ $works_query = new WP_Query($args);
                             <!-- コンテンツ -->
                             <div class="p-6">
                                 <h2 class="text-xl font-bold mb-3 line-clamp-2">
-                                    <a href="<?php the_permalink(); ?>" class="hover:text-katayama-orange transition-colors">
+                                    <a href="<?php the_permalink(); ?>" class="hover:text-katayama-blue transition-colors">
                                         <?php the_title(); ?>
                                     </a>
                                 </h2>
@@ -223,7 +223,7 @@ $works_query = new WP_Query($args);
                                 </div>
 
                                 <div class="mt-4">
-                                    <a href="<?php the_permalink(); ?>" class="inline-flex items-center gap-2 text-katayama-blue hover:text-katayama-orange transition-colors font-medium">
+                                    <a href="<?php the_permalink(); ?>" class="inline-flex items-center gap-2 text-katayama-blue hover:text-katayama-blue transition-colors font-medium">
                                         詳細を見る
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -264,7 +264,7 @@ $works_query = new WP_Query($args);
                     </div>
                     <h2 class="text-2xl font-bold mb-4 text-gray-600">実績が見つかりませんでした</h2>
                     <p class="text-gray-500 mb-8">条件を変更して再度検索してください</p>
-                    <a href="<?php echo esc_url(get_term_link($term)); ?>" class="inline-block bg-katayama-blue text-white px-6 py-3 rounded-lg hover:bg-katayama-orange transition-colors">
+                    <a href="<?php echo esc_url(get_term_link($term)); ?>" class="inline-block bg-katayama-blue text-white px-6 py-3 rounded-lg hover:bg-katayama-blue transition-colors">
                         <?php echo esc_html($term->name); ?>の実績をすべて見る
                     </a>
                 </div>

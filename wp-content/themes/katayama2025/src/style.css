@@ -82,7 +82,7 @@
   right: 2rem;
   width: 3rem;
   height: 3rem;
-  background: var(--color-orange);
+  background: var(--color-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -107,7 +107,7 @@
 
 /* フッター */
 .footer a {
-  @apply text-gray-300 hover:text-katayama-orange transition-colors;
+  @apply text-gray-300 hover:text-katayama-blue transition-colors;
 }
 
 .accordion-content {
@@ -252,13 +252,5 @@
 
   .bg-katayama-blue {
     background-color: var(--color-blue);
-  }
-
-  .text-katayama-orange {
-    color: var(--color-orange);
-  }
-
-  .bg-katayama-orange {
-    background-color: var(--color-orange);
   }
 }

@@ -12,7 +12,7 @@ if (!$interviews) return;
 <section id="interview" class="interview-section py-16 md:py-24 bg-gradient-to-br from-blue-50 to-blue-100">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12 fade-in-up">
-            <h2 class="text-sm font-semibold text-katayama-orange uppercase tracking-wide mb-4">
+            <h2 class="text-sm font-semibold text-katayama-blue uppercase tracking-wide mb-4">
                 INTERVIEW
             </h2>
             <h3 class="text-3xl md:text-4xl font-bold mb-6">
@@ -61,7 +61,7 @@ if (!$interviews) return;
                     <?php if (!empty($interview['qa'])): ?>
                         <div class="p-8 space-y-6">
                             <?php foreach ($interview['qa'] as $qa_index => $qa): ?>
-                                <div class="border-l-4 border-katayama-orange pl-6">
+                                <div class="border-l-4 border-katayama-blue pl-6">
                                     <h5 class="text-lg font-semibold text-gray-900 mb-3">
                                         Q. <?php echo esc_html($qa['question']); ?>
                                     </h5>

@@ -16,7 +16,7 @@ if (!$slogan && !$message) return;
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- テキストエリア -->
             <div class="fade-in-up">
-                <h2 class="text-sm font-semibold text-katayama-orange uppercase tracking-wide mb-4">
+                <h2 class="text-sm font-semibold text-katayama-blue uppercase tracking-wide mb-4">
                     ABOUT
                 </h2>
 

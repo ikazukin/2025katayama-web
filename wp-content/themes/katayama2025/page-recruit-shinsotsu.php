@@ -49,7 +49,7 @@ get_header();
                 <?php endif; ?>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#entry-form" class="inline-block bg-katayama-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg">
+                    <a href="#entry-form" class="inline-block bg-katayama-blue hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg">
                         エントリーする
                     </a>
                     <a href="#recruit" class="inline-block bg-white hover:bg-gray-100 text-blue-600 px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg">

@@ -71,7 +71,6 @@ export function initEntranceMotion() {
         trigger: section,
         start: 'top 80%',
         toggleActions: 'play none none none',
-        markers: true, // デバッグ用
         onEnter: () => console.log(`Section ${index} entered`),
       },
     });

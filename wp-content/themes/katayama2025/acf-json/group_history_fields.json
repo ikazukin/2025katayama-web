@@ -1,0 +1,135 @@
+{
+    "key": "group_history_fields",
+    "title": "沿革フィールド",
+    "fields": [
+        {
+            "key": "field_hero_title",
+            "label": "ページタイトル",
+            "name": "hero_title",
+            "type": "text",
+            "instructions": "ヒーローセクションに表示されるメインタイトル",
+            "required": 0,
+            "default_value": "カタヤマの歩み",
+            "placeholder": "カタヤマの歩み"
+        },
+        {
+            "key": "field_hero_subtitle",
+            "label": "サブタイトル",
+            "name": "hero_subtitle",
+            "type": "textarea",
+            "instructions": "ヒーローセクションに表示されるリード文",
+            "required": 0,
+            "default_value": "1985年の創業から40年。\n株式会社カタヤマの歴史を振り返ります。",
+            "rows": 3
+        },
+        {
+            "key": "field_hero_image",
+            "label": "ヒーロー画像",
+            "name": "hero_image",
+            "type": "image",
+            "instructions": "ヒーローセクションの背景画像",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_timeline",
+            "label": "沿革タイムライン",
+            "name": "timeline",
+            "type": "repeater",
+            "instructions": "会社の沿革イベントを追加します",
+            "required": 1,
+            "layout": "block",
+            "button_label": "イベントを追加",
+            "sub_fields": [
+                {
+                    "key": "field_year",
+                    "label": "年",
+                    "name": "year",
+                    "type": "text",
+                    "instructions": "西暦年（例: 1985）",
+                    "required": 1,
+                    "placeholder": "1985"
+                },
+                {
+                    "key": "field_month",
+                    "label": "月",
+                    "name": "month",
+                    "type": "select",
+                    "instructions": "月を選択（任意）",
+                    "required": 0,
+                    "choices": {
+                        "1": "1月",
+                        "2": "2月",
+                        "3": "3月",
+                        "4": "4月",
+                        "5": "5月",
+                        "6": "6月",
+                        "7": "7月",
+                        "8": "8月",
+                        "9": "9月",
+                        "10": "10月",
+                        "11": "11月",
+                        "12": "12月"
+                    },
+                    "allow_null": 1,
+                    "default_value": ""
+                },
+                {
+                    "key": "field_event_title",
+                    "label": "出来事のタイトル",
+                    "name": "event_title",
+                    "type": "text",
+                    "instructions": "イベントの簡潔なタイトル",
+                    "required": 1,
+                    "placeholder": "株式会社カタヤマ設立"
+                },
+                {
+                    "key": "field_event_description",
+                    "label": "詳細説明",
+                    "name": "event_description",
+                    "type": "textarea",
+                    "instructions": "イベントの詳しい説明（任意）",
+                    "required": 0,
+                    "rows": 3
+                },
+                {
+                    "key": "field_event_image",
+                    "label": "関連画像",
+                    "name": "event_image",
+                    "type": "image",
+                    "instructions": "イベントに関連する画像（任意）",
+                    "required": 0,
+                    "return_format": "array",
+                    "preview_size": "thumbnail",
+                    "library": "all"
+                },
+                {
+                    "key": "field_milestone",
+                    "label": "重要なマイルストーン",
+                    "name": "milestone",
+                    "type": "true_false",
+                    "instructions": "このイベントを重要マイルストーンとして強調表示する",
+                    "required": 0,
+                    "default_value": 0,
+                    "ui": 1
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-history.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true
+}

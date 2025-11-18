@@ -148,7 +148,7 @@ $cta_link = get_customizer_or_acf('hero_cta_link', 'hero_cta_link', $page_id);
             <?php if ($cta_link && $cta_text): ?>
                 <a
                     href="<?php echo esc_url($cta_link); ?>"
-                    class="hero-cta inline-block bg-katayama-blue hover:bg-katayama-navy text-white px-8 py-4 rounded-full text-lg font-semibold transition-all shadow-lg"
+                    class="hero-cta inline-block bg-katayama-blue hover:bg-white text-white hover:text-katayama-blue border-2 border-katayama-blue px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                     <?php echo esc_html($cta_text); ?>
                 </a>

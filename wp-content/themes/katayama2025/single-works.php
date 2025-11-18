@@ -137,7 +137,7 @@ get_header();
             <!-- 一覧に戻る -->
             <div class="works-back py-8">
                 <div class="container mx-auto px-4 text-center">
-                    <a href="<?php echo get_post_type_archive_link('works'); ?>" class="inline-flex items-center gap-2 text-katayama-blue hover:text-katayama-orange transition-colors">
+                    <a href="<?php echo get_post_type_archive_link('works'); ?>" class="inline-flex items-center gap-2 text-katayama-blue hover:text-katayama-blue transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                         </svg>

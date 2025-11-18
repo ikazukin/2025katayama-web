@@ -12,7 +12,7 @@ if (!$faq) return;
 <section id="faq" class="faq-section py-16 md:py-24 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12 fade-in-up">
-            <h2 class="text-sm font-semibold text-katayama-orange uppercase tracking-wide mb-4">
+            <h2 class="text-sm font-semibold text-katayama-blue uppercase tracking-wide mb-4">
                 FAQ
             </h2>
             <h3 class="text-3xl md:text-4xl font-bold mb-6">
@@ -32,7 +32,7 @@ if (!$faq) return;
                         <span class="font-semibold text-lg pr-4">
                             Q. <?php echo esc_html($item['question']); ?>
                         </span>
-                        <svg class="faq-icon w-6 h-6 flex-shrink-0 text-katayama-orange transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="faq-icon w-6 h-6 flex-shrink-0 text-katayama-blue transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>

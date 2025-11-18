@@ -87,6 +87,19 @@ function katayama_enqueue_vite_assets() {
 }
 add_action('wp_enqueue_scripts', 'katayama_enqueue_vite_assets');
 
+// 沿革ページ用CSS
+function katayama_enqueue_history_styles() {
+    if (is_page_template('page-history.php')) {
+        wp_enqueue_style(
+            'katayama-history',
+            get_template_directory_uri() . '/assets/css/history.css',
+            [],
+            '1.0.0'
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'katayama_enqueue_history_styles');
+
 // ACF JSON 保存先・読み込み先
 add_filter('acf/settings/save_json', function() {
     return get_stylesheet_directory() . '/acf-json';
@@ -467,13 +480,13 @@ add_action('acf/init', 'register_acf_features_fields');
 
 /**
  * ACF Field Group: Services Section
- * Issue 04 - 事業内容バナー（改善版：リンク管理 + 画像自動最適化）
+ * Issue 24 - 事業分岐セクション（画像+テキストカード型）
  */
 function register_acf_services_fields() {
     if (function_exists('acf_add_local_field_group')) {
         acf_add_local_field_group([
             'key' => 'group_services_section',
-            'title' => 'Services Section',
+            'title' => 'Services Section（事業分岐）',
             'fields' => [
                 [
                     'key' => 'field_services_tab',
@@ -483,47 +496,82 @@ function register_acf_services_fields() {
                     'placement' => 'top',
                 ],
                 [
-                    'key' => 'field_services_list',
-                    'label' => '事業内容リスト',
-                    'name' => 'services_list',
+                    'key' => 'field_services_section_title',
+                    'label' => 'セクションタイトル',
+                    'name' => 'services_section_title',
+                    'type' => 'text',
+                    'instructions' => 'セクションのタイトル',
+                    'default_value' => 'カタヤマの主な事業領域',
+                ],
+                [
+                    'key' => 'field_services_section_description',
+                    'label' => 'セクション説明文',
+                    'name' => 'services_section_description',
+                    'type' => 'textarea',
+                    'instructions' => 'セクションの説明文',
+                    'rows' => 3,
+                    'default_value' => '大規模修繕で培った技術と信頼をもとに、建物のライフサイクルをトータルに支える事業を展開しています。',
+                ],
+                [
+                    'key' => 'field_services_cards',
+                    'label' => '事業カードリスト',
+                    'name' => 'services_cards',
                     'type' => 'repeater',
-                    'instructions' => '事業内容を4件追加してください',
+                    'instructions' => '事業カードを4件追加してください',
                     'min' => 4,
                     'max' => 4,
                     'layout' => 'block',
-                    'button_label' => '事業を追加',
+                    'button_label' => '事業カードを追加',
                     'sub_fields' => [
                         [
-                            'key' => 'field_service_image',
-                            'label' => 'バナー画像',
+                            'key' => 'field_service_card_image',
+                            'label' => '画像',
                             'name' => 'image',
                             'type' => 'image',
-                            'instructions' => 'バナー画像（推奨比率: 4:3、推奨サイズ: 800x600px）',
+                            'instructions' => '事業イメージ画像（推奨サイズ: 600x400px）',
                             'return_format' => 'array',
                             'preview_size' => 'medium',
                             'required' => 1,
                         ],
                         [
-                            'key' => 'field_service_title',
-                            'label' => 'タイトル',
+                            'key' => 'field_service_card_title',
+                            'label' => 'カード名',
                             'name' => 'title',
                             'type' => 'text',
-                            'instructions' => '事業名',
+                            'instructions' => '事業名（例: 大規模修繕工事）',
                             'required' => 1,
                         ],
                         [
-                            'key' => 'field_service_alt_text',
-                            'label' => 'Alt テキスト（SEO用）',
-                            'name' => 'alt_text',
+                            'key' => 'field_service_card_catchcopy',
+                            'label' => 'キャッチコピー',
+                            'name' => 'catchcopy',
                             'type' => 'text',
-                            'instructions' => '画像の代替テキスト（空欄の場合はタイトルを使用）',
+                            'instructions' => '事業のキャッチコピー（例: 建物の未来を守る、確かな技術）',
+                            'required' => 1,
                         ],
                         [
-                            'key' => 'field_service_link',
-                            'label' => 'リンク先URL',
-                            'name' => 'link',
+                            'key' => 'field_service_card_description',
+                            'label' => 'サブ説明',
+                            'name' => 'description',
+                            'type' => 'textarea',
+                            'instructions' => '事業の説明文',
+                            'rows' => 3,
+                            'required' => 1,
+                        ],
+                        [
+                            'key' => 'field_service_card_cta_text',
+                            'label' => 'CTAボタンテキスト',
+                            'name' => 'cta_text',
+                            'type' => 'text',
+                            'instructions' => 'ボタンに表示するテキスト（例: 無料見積もり・相談）',
+                            'required' => 1,
+                        ],
+                        [
+                            'key' => 'field_service_card_cta_link',
+                            'label' => 'CTAボタンリンク先',
+                            'name' => 'cta_link',
                             'type' => 'url',
-                            'instructions' => '詳細ページのURL',
+                            'instructions' => 'リンク先URL',
                             'required' => 1,
                         ],
                     ],
@@ -703,20 +751,36 @@ function register_acf_recruit_fields() {
                     'preview_size' => 'medium',
                 ],
                 [
-                    'key' => 'field_recruit_cta_text',
-                    'label' => 'CTAボタンテキスト',
-                    'name' => 'recruit_cta_text',
+                    'key' => 'field_recruit_btn1_text',
+                    'label' => 'ボタン1：テキスト',
+                    'name' => 'recruit_btn1_text',
                     'type' => 'text',
-                    'instructions' => 'ボタンに表示するテキスト',
-                    'placeholder' => '例: 採用情報を見る',
+                    'instructions' => '新卒採用ボタンのテキスト',
+                    'default_value' => '新卒採用情報',
                 ],
                 [
-                    'key' => 'field_recruit_cta_link',
-                    'label' => 'CTAボタンリンク',
-                    'name' => 'recruit_cta_link',
+                    'key' => 'field_recruit_btn1_link',
+                    'label' => 'ボタン1：リンク先',
+                    'name' => 'recruit_btn1_link',
                     'type' => 'url',
-                    'instructions' => 'ボタンのリンク先URL',
-                    'placeholder' => 'https://example.com/recruit',
+                    'instructions' => '新卒採用ページのURL',
+                    'default_value' => '/recruit/shinsotsu/',
+                ],
+                [
+                    'key' => 'field_recruit_btn2_text',
+                    'label' => 'ボタン2：テキスト',
+                    'name' => 'recruit_btn2_text',
+                    'type' => 'text',
+                    'instructions' => '中途採用ボタンのテキスト',
+                    'default_value' => '中途採用情報',
+                ],
+                [
+                    'key' => 'field_recruit_btn2_link',
+                    'label' => 'ボタン2：リンク先',
+                    'name' => 'recruit_btn2_link',
+                    'type' => 'url',
+                    'instructions' => '中途採用ページのURL',
+                    'default_value' => '/recruit/boshu/',
                 ],
             ],
             'location' => [
@@ -1162,6 +1226,139 @@ function register_acf_recruit_shinsotsu_fields() {
 }
 add_action('acf/init', 'register_acf_recruit_shinsotsu_fields');
 
+/**
+ * ACF Field Group: Company Introduction Section
+ * Issue #24 - カタヤマについてセクション
+ */
+function register_acf_company_intro_fields() {
+    if (function_exists('acf_add_local_field_group')) {
+        acf_add_local_field_group([
+            'key' => 'group_company_intro',
+            'title' => 'Company Introduction Section',
+            'fields' => [
+                [
+                    'key' => 'field_company_intro_tab',
+                    'label' => 'Company Intro',
+                    'name' => '',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                ],
+                [
+                    'key' => 'field_company_intro_title',
+                    'label' => 'セクションタイトル',
+                    'name' => 'company_intro_title',
+                    'type' => 'text',
+                    'default_value' => '40年の歩み、これからの挑戦。',
+                ],
+                [
+                    'key' => 'field_company_intro_link',
+                    'label' => '会社紹介ページリンク',
+                    'name' => 'company_intro_link',
+                    'type' => 'url',
+                    'default_value' => '/company/',
+                ],
+                [
+                    'key' => 'field_company_philosophy',
+                    'label' => '社是カード',
+                    'name' => 'company_philosophy',
+                    'type' => 'repeater',
+                    'instructions' => '社是を3件追加してください',
+                    'min' => 3,
+                    'max' => 3,
+                    'layout' => 'block',
+                    'button_label' => '社是を追加',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_philosophy_emoji',
+                            'label' => '絵文字',
+                            'name' => 'emoji',
+                            'type' => 'text',
+                            'instructions' => '絵文字（例: 🤝）',
+                            'required' => 1,
+                        ],
+                        [
+                            'key' => 'field_philosophy_title',
+                            'label' => 'タイトル',
+                            'name' => 'title',
+                            'type' => 'text',
+                            'instructions' => '社是のタイトル（例: 約束）',
+                            'required' => 1,
+                        ],
+                        [
+                            'key' => 'field_philosophy_description',
+                            'label' => '説明文',
+                            'name' => 'description',
+                            'type' => 'textarea',
+                            'instructions' => '社是の説明文',
+                            'rows' => 3,
+                            'required' => 1,
+                        ],
+                    ],
+                ],
+                [
+                    'key' => 'field_company_stats',
+                    'label' => '実績サマリー',
+                    'name' => 'company_stats',
+                    'type' => 'group',
+                    'layout' => 'block',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_stat_years',
+                            'label' => '創業年数',
+                            'name' => 'years',
+                            'type' => 'text',
+                            'default_value' => '40年',
+                        ],
+                        [
+                            'key' => 'field_stat_projects',
+                            'label' => '累計施工実績',
+                            'name' => 'projects',
+                            'type' => 'text',
+                            'default_value' => '1,200棟',
+                        ],
+                        [
+                            'key' => 'field_stat_iso',
+                            'label' => 'ISO認証',
+                            'name' => 'iso',
+                            'type' => 'text',
+                            'default_value' => 'ISO認証',
+                        ],
+                        [
+                            'key' => 'field_stat_iso_detail',
+                            'label' => 'ISO詳細',
+                            'name' => 'iso_detail',
+                            'type' => 'text',
+                            'default_value' => '9001・14001',
+                        ],
+                        [
+                            'key' => 'field_stat_area',
+                            'label' => '施工エリア',
+                            'name' => 'area',
+                            'type' => 'text',
+                            'default_value' => '神奈川・東京',
+                        ],
+                    ],
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'page_type',
+                        'operator' => '==',
+                        'value' => 'front_page',
+                    ],
+                ],
+            ],
+            'menu_order' => 4,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+        ]);
+    }
+}
+add_action('acf/init', 'register_acf_company_intro_fields');
+
 // ============================================
 // WordPress Customizer API Integration
 // Issue 18 - トップページのカスタマイザー統合
@@ -1505,8 +1702,8 @@ function katayama_block_categories($categories) {
         $categories,
         [
             [
-                'slug' => 'katayama-blocks',
-                'title' => 'Katayama ブロック',
+                'slug' => 'katayama-works',
+                'title' => 'カタヤマ（施工実績専用）',
             ],
         ]
     );
@@ -1622,6 +1819,246 @@ function katayama_enqueue_block_editor_assets() {
 add_action('enqueue_block_editor_assets', 'katayama_enqueue_block_editor_assets');
 
 /**
+ * グローバルナビの初期設定
+ * Issue #24 - リフォーム・パートナー募集を追加
+ */
+function katayama_setup_navigation_menu() {
+    // すでにメニューが設定されている場合はスキップ
+    $menu_name = 'primary';
+    $locations = get_nav_menu_locations();
+
+    if (!isset($locations[$menu_name])) {
+        // メニューを作成
+        $menu_id = wp_create_nav_menu('プライマリメニュー');
+
+        if (!is_wp_error($menu_id)) {
+            // メニュー項目を追加
+            $menu_items = [
+                ['title' => 'ホーム', 'url' => home_url('/'), 'order' => 1],
+                ['title' => '会社紹介', 'url' => home_url('/company/'), 'order' => 2],
+                ['title' => '大規模修繕', 'url' => home_url('/large-scale-renovation/'), 'order' => 3],
+                ['title' => 'リフォーム', 'url' => home_url('/reform/'), 'order' => 4],
+                ['title' => '施工実績', 'url' => home_url('/works/'), 'order' => 5],
+                ['title' => '採用情報', 'url' => home_url('/recruit/'), 'order' => 6],
+                ['title' => 'パートナー募集', 'url' => home_url('/partner/'), 'order' => 7],
+                ['title' => 'お問い合わせ', 'url' => home_url('/contact/'), 'order' => 8],
+            ];
+
+            foreach ($menu_items as $item) {
+                wp_update_nav_menu_item($menu_id, 0, [
+                    'menu-item-title' => $item['title'],
+                    'menu-item-url' => $item['url'],
+                    'menu-item-status' => 'publish',
+                    'menu-item-position' => $item['order'],
+                ]);
+            }
+
+            // メニューを primary ロケーションに割り当て
+            $locations[$menu_name] = $menu_id;
+            set_theme_mod('nav_menu_locations', $locations);
+        }
+    }
+}
+// テーマ有効化時に1回だけ実行
+add_action('after_switch_theme', 'katayama_setup_navigation_menu');
+
+/**
+ * 既存メニューに採用情報とパートナー募集を追加
+ */
+function katayama_add_recruit_partner_to_menu() {
+    $locations = get_nav_menu_locations();
+
+    if (!isset($locations['primary'])) {
+        return;
+    }
+
+    $menu_id = $locations['primary'];
+    $menu_items = wp_get_nav_menu_items($menu_id);
+
+    if (!$menu_items) {
+        return;
+    }
+
+    // 既に追加済みかチェック
+    $has_recruit = false;
+    $has_partner = false;
+
+    foreach ($menu_items as $item) {
+        if (strpos($item->url, '/recruit/') !== false) {
+            $has_recruit = true;
+        }
+        if (strpos($item->url, '/partner/') !== false) {
+            $has_partner = true;
+        }
+    }
+
+    // 採用情報を追加
+    if (!$has_recruit) {
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-title' => '採用情報',
+            'menu-item-url' => home_url('/recruit/'),
+            'menu-item-status' => 'publish',
+            'menu-item-type' => 'custom',
+        ]);
+    }
+
+    // パートナー募集を追加
+    if (!$has_partner) {
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-title' => 'パートナー募集',
+            'menu-item-url' => home_url('/partner/'),
+            'menu-item-status' => 'publish',
+            'menu-item-type' => 'custom',
+        ]);
+    }
+}
+// admin_initで実行（1回のみ実行するようにフラグを使用）
+add_action('admin_init', function() {
+    if (!get_option('katayama_menu_items_added')) {
+        katayama_add_recruit_partner_to_menu();
+        update_option('katayama_menu_items_added', true);
+    }
+});
+
+/**
+ * ACFフィールドにサンプルデータを挿入
+ * Issue #24 - トップページ刷新
+ */
+function katayama_insert_sample_acf_data() {
+    $front_page_id = get_option('page_on_front');
+
+    if (!$front_page_id) {
+        return;
+    }
+
+    // Services Section（事業分岐）のデータを挿入
+    $services_cards = [
+        [
+            'image' => '',
+            'title' => '大規模修繕工事',
+            'catchcopy' => '建物の未来を守る、確かな技術',
+            'description' => 'マンション・公共施設の外壁・防水・設備改修まで、豊富な実績で対応します。',
+            'cta_text' => '無料見積もり・相談',
+            'cta_link' => home_url('/large-scale-renovation/'),
+        ],
+        [
+            'image' => '',
+            'title' => 'リフォーム',
+            'catchcopy' => '住まいに新しい価値を',
+            'description' => '内装・外装リフォームから防水・外壁改修まで、快適で美しい空間を提供。',
+            'cta_text' => '施工例を見る',
+            'cta_link' => home_url('/works/'),
+        ],
+        [
+            'image' => '',
+            'title' => '採用情報',
+            'catchcopy' => '地域で働き、未来をつくる',
+            'description' => '若手からベテランまで活躍する現場。人を大切にする風土と成長機会。',
+            'cta_text' => 'エントリー',
+            'cta_link' => home_url('/recruit/'),
+        ],
+        [
+            'image' => '',
+            'title' => 'パートナー募集',
+            'catchcopy' => '共に信頼を築く仲間へ',
+            'description' => '安全・品質を共有し、地域とともに成長できる協力会社を募集しています。',
+            'cta_text' => 'エントリーフォーム',
+            'cta_link' => home_url('/partner/'),
+        ],
+    ];
+
+    update_field('services_section_title', 'カタヤマの主な事業領域', $front_page_id);
+    update_field('services_section_description', '大規模修繕で培った技術と信頼をもとに、建物のライフサイクルをトータルに支える事業を展開しています。', $front_page_id);
+    update_field('services_cards', $services_cards, $front_page_id);
+
+    // Features Section（信頼セクション）のデータを挿入
+    $features_list = [
+        [
+            'icon' => '',
+            'title' => '実績と規模で信頼を証明',
+            'description' => "累計施工棟数1,200棟以上\n施工エリア：神奈川・東京全域\nISO9001・14001認証取得",
+        ],
+        [
+            'icon' => '',
+            'title' => '人と現場が生む品質',
+            'description' => "ベテラン技術者×若手育成\n安全大会・社内研修の継続\n現場の声を大切にする風土",
+        ],
+        [
+            'icon' => '',
+            'title' => '地域と共に歩む40年',
+            'description' => "地域金融機関との協力\n親和会・安全祈願祭など地域連携活動\n地域社会への貢献を重視",
+        ],
+    ];
+
+    update_field('features_list', $features_list, $front_page_id);
+
+    // Company Introduction Section（カタヤマについて）のデータを挿入
+    update_field('company_intro_title', '40年の歩み、これからの挑戦。', $front_page_id);
+    update_field('company_intro_link', home_url('/company/'), $front_page_id);
+
+    // 社是カード
+    $company_philosophy = [
+        [
+            'emoji' => '🤝',
+            'title' => '約束',
+            'description' => "お客様との約束を守り、\n確かな品質をお届けします。",
+        ],
+        [
+            'emoji' => '🙏',
+            'title' => '感謝',
+            'description' => "地域の皆様、協力会社への\n感謝の心を忘れません。",
+        ],
+        [
+            'emoji' => '✨',
+            'title' => '夢',
+            'description' => "未来に向けて挑戦し続け、\n新しい価値を創造します。",
+        ],
+    ];
+    update_field('company_philosophy', $company_philosophy, $front_page_id);
+
+    // 実績サマリー
+    update_field('company_stats', [
+        'years' => '40年',
+        'projects' => '1,200棟',
+        'iso' => 'ISO認証',
+        'iso_detail' => '9001・14001',
+        'area' => '神奈川・東京',
+    ], $front_page_id);
+
+    // Recruit Section（採用情報）のボタンデータを挿入
+    update_field('recruit_btn1_text', '新卒採用情報', $front_page_id);
+    update_field('recruit_btn1_link', home_url('/recruit/shinsotsu/'), $front_page_id);
+    update_field('recruit_btn2_text', '中途採用情報', $front_page_id);
+    update_field('recruit_btn2_link', home_url('/recruit/boshu/'), $front_page_id);
+}
+// テーマ有効化時に1回だけ実行
+add_action('after_switch_theme', 'katayama_insert_sample_acf_data');
+
+// 一時的な実行フック（データがまだ挿入されていない場合のみ実行）
+function katayama_maybe_insert_sample_data() {
+    $front_page_id = get_option('page_on_front');
+
+    if (!$front_page_id) {
+        return;
+    }
+
+    // データが既に存在するかチェック
+    $existing_data = get_field('services_cards', $front_page_id);
+
+    if (empty($existing_data)) {
+        katayama_insert_sample_acf_data();
+        // 管理画面に通知を表示
+        add_action('admin_notices', function() {
+            echo '<div class="notice notice-success is-dismissible">';
+            echo '<p><strong>✅ ACFフィールドにサンプルデータを挿入しました！</strong></p>';
+            echo '<p>固定ページ → フロントページ編集で、画像をアップロードしてください。</p>';
+            echo '</div>';
+        });
+    }
+}
+add_action('admin_init', 'katayama_maybe_insert_sample_data');
+
+/**
  * パンくずリスト生成関数
  * Issue #16 - ナビゲーション連携
  */
@@ -1683,3 +2120,89 @@ function katayama_breadcrumbs() {
     echo '</div>';
     echo '</nav>';
 }
+
+/**
+ * Works専用 Gutenbergカスタムブロックの登録
+ * Issue #30 - @wordpress/scriptsでビルド
+ */
+function katayama_register_works_blocks_v2() {
+    $theme_dir = get_template_directory();
+
+    // gallery-carouselブロック
+    register_block_type( $theme_dir . '/blocks/gallery-carousel' );
+
+    // before-afterブロック
+    register_block_type( $theme_dir . '/blocks/before-after' );
+}
+add_action( 'init', 'katayama_register_works_blocks_v2' );
+
+/**
+ * 旧Vite版の登録処理（無効化）
+ * Issue #26, #28 - Vite版は動作しないため無効化
+ */
+/*
+function katayama_register_works_blocks() {
+    // works投稿タイプの編集画面でのみブロックを読み込む
+    $current_screen = get_current_screen();
+    $post_type = '';
+
+    if ($current_screen) {
+        $post_type = $current_screen->post_type;
+    } elseif (isset($_GET['post_type'])) {
+        $post_type = sanitize_text_field($_GET['post_type']);
+    } elseif (isset($_GET['post'])) {
+        $post_type = get_post_type($_GET['post']);
+    }
+
+    // works投稿タイプの場合のみブロックを読み込む
+    if ($post_type !== 'works') {
+        return;
+    }
+
+    $is_dev = defined('WP_DEBUG') && WP_DEBUG;
+
+    if ($is_dev) {
+        // 開発モード
+        wp_enqueue_script(
+            'katayama-works-blocks',
+            'http://localhost:5173/src/blocks/works-blocks.js',
+            ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n'],
+            null,
+            true
+        );
+    } else {
+        // 本番モード
+        $manifest_path = get_template_directory() . '/dist/.vite/manifest.json';
+
+        if (file_exists($manifest_path)) {
+            $manifest = json_decode(file_get_contents($manifest_path), true);
+
+            if (isset($manifest['src/blocks/works-blocks.js'])) {
+                $works_blocks = $manifest['src/blocks/works-blocks.js'];
+
+                // JavaScript
+                wp_enqueue_script(
+                    'katayama-works-blocks',
+                    get_template_directory_uri() . '/dist/' . $works_blocks['file'],
+                    ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n'],
+                    null,
+                    true
+                );
+
+                // CSS
+                if (isset($works_blocks['css'])) {
+                    foreach ($works_blocks['css'] as $index => $css_file) {
+                        wp_enqueue_style(
+                            'katayama-works-blocks-style-' . $index,
+                            get_template_directory_uri() . '/dist/' . $css_file,
+                            [],
+                            null
+                        );
+                    }
+                }
+            }
+        }
+    }
+}
+add_action('enqueue_block_editor_assets', 'katayama_register_works_blocks');
+*/

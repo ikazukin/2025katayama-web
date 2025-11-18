@@ -41,8 +41,11 @@ if (empty($features)) return;
 <section class="features-section animate-on-scroll py-16 md:py-24 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">私たちの強み</h2>
-            <p class="text-gray-600">カタヤマが選ばれる3つの理由</p>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">40年の歩みが築いた、確かな信頼と技術。</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto">
+                神奈川・東京で培った実績と品質管理体制、<br class="hidden md:block">
+                そして人と地域のつながりが、私たちの誇りです。
+            </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

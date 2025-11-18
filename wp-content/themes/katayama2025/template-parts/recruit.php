@@ -33,8 +33,10 @@ $title = get_recruit_data('recruit_title', 'recruit_title', $page_id);
 $text = get_recruit_data('recruit_text', 'recruit_text', $page_id);
 $image1 = get_recruit_image('recruit_image_1', 'recruit_image_1', $page_id);
 $image2 = get_recruit_image('recruit_image_2', 'recruit_image_2', $page_id);
-$cta_text = get_recruit_data('recruit_cta_text', 'recruit_cta_text', $page_id);
-$cta_link = get_recruit_data('recruit_cta_link', 'recruit_cta_link', $page_id);
+$btn1_text = get_recruit_data('recruit_btn1_text', 'recruit_btn1_text', $page_id, '新卒採用情報');
+$btn1_link = get_recruit_data('recruit_btn1_link', 'recruit_btn1_link', $page_id, '/recruit/shinsotsu/');
+$btn2_text = get_recruit_data('recruit_btn2_text', 'recruit_btn2_text', $page_id, '中途採用情報');
+$btn2_link = get_recruit_data('recruit_btn2_link', 'recruit_btn2_link', $page_id, '/recruit/boshu/');
 
 if (!$title && !$text) return;
 ?>
@@ -56,19 +58,19 @@ if (!$title && !$text) return;
                     </div>
                 <?php endif; ?>
 
-                <!-- 2ボタン対応（新卒/中途） - Issue #16 -->
+                <!-- 2ボタン対応（新卒/中途） - Issue #24: CTAボタン統一 -->
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a
-                        href="/recruit/shinsotsu/"
-                        class="inline-block bg-katayama-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg text-center"
+                        href="<?php echo esc_url($btn1_link); ?>"
+                        class="inline-block bg-katayama-blue hover:bg-white text-white hover:text-katayama-blue border-2 border-katayama-blue px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl text-center"
                     >
-                        新卒採用情報
+                        <?php echo esc_html($btn1_text); ?>
                     </a>
                     <a
-                        href="/recruit/boshu/"
-                        class="inline-block bg-white hover:bg-gray-100 text-blue-600 border-2 border-blue-600 px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg text-center"
+                        href="<?php echo esc_url($btn2_link); ?>"
+                        class="inline-block bg-white hover:bg-katayama-blue text-katayama-blue hover:text-white border-2 border-katayama-blue px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl text-center"
                     >
-                        中途採用情報
+                        <?php echo esc_html($btn2_text); ?>
                     </a>
                 </div>
             </div>

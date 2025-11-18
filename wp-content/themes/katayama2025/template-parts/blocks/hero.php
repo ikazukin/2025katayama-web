@@ -96,7 +96,7 @@ $cta_link = $attributes['ctaLink'] ?? '';
             <?php if ($cta_link && $cta_text): ?>
                 <a
                     href="<?php echo esc_url($cta_link); ?>"
-                    class="inline-block bg-katayama-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all hover:scale-105 shadow-lg"
+                    class="inline-block bg-katayama-blue hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all hover:scale-105 shadow-lg"
                 >
                     <?php echo esc_html($cta_text); ?>
                 </a>
