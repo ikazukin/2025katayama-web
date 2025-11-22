@@ -33,7 +33,7 @@ get_header();
                 ?>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
                         <?php while ($interviews_query->have_posts()) : $interviews_query->the_post(); ?>
-                            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                            <div class="bg-white shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                                 <?php if (has_post_thumbnail()) : ?>
                                     <div class="aspect-w-3 aspect-h-4">
                                         <?php the_post_thumbnail('medium_large', ['class' => 'w-full h-80 object-cover']); ?>

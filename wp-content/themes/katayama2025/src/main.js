@@ -3,11 +3,23 @@ import GLightbox from 'glightbox';
 import 'glightbox/dist/css/glightbox.min.css';
 import { initAllAnimations } from './animations.js';
 import './works-frontend.js';
+import './opening-video.js'; // オープニング動画制御
+import './hero-animation.js'; // Heroアニメーション
+import './history-scroll.js'; // 沿革ページスクロールアニメーション
+import './estimate.js'; // 見積もりシミュレーター
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 // DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
   // GSAP Animations（新規）
   initAllAnimations();
+
+  // スクロールアニメーション
+  initScrollAnimations();
 
   // ライトボックス
   initLightbox();
@@ -26,26 +38,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Worksフィルター - Issue 21
   initWorksFilter();
+
+  // 施工実績カルーセル（スマホ版のみ）
+  initWorksSwiper();
 });
 
-// スクロールアニメーション
+// スクロールアニメーション（フェードイン・フェードアウト）
 function initScrollAnimations() {
   const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
+        // 画面に入った時：フェードイン
         entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+      } else {
+        // 画面から出た時：フェードアウト
+        entry.target.classList.remove('is-visible');
       }
     });
   }, observerOptions);
 
+  // アニメーション対象の要素を取得
   const animateElements = document.querySelectorAll('.fade-in-up, .fade-in, .scale-in');
   animateElements.forEach(el => observer.observe(el));
+
+  // セクション全体にもアニメーションを適用
+  const sections = document.querySelectorAll('.animate-on-scroll');
+  sections.forEach(section => {
+    // セクション自体を監視
+    observer.observe(section);
+
+    // セクション内の子要素にもフェードインクラスを追加（まだない場合）
+    const children = section.querySelectorAll(':scope > div > *');
+    children.forEach((child, index) => {
+      if (!child.classList.contains('fade-in-up') &&
+          !child.classList.contains('fade-in') &&
+          !child.classList.contains('scale-in')) {
+        child.classList.add('fade-in-up');
+        child.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(child);
+      }
+    });
+  });
 }
 
 // ライトボックス
@@ -169,4 +207,48 @@ if ('IntersectionObserver' in window) {
       imageObserver.observe(img);
     });
   });
+}
+
+// 施工実績カルーセル初期化（スマホ版のみ）
+function initWorksSwiper() {
+  const worksSwiper = document.querySelector('.works-swiper');
+  if (!worksSwiper) return;
+
+  // スマホ版（639px以下）のみSwiperを有効化
+  let swiper = null;
+
+  function checkWidth() {
+    if (window.innerWidth <= 639) {
+      if (!swiper) {
+        swiper = new Swiper('.works-swiper', {
+          modules: [Navigation, Pagination, Autoplay],
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: '.works-swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.works-swiper-button-next',
+            prevEl: '.works-swiper-button-prev',
+          },
+        });
+      }
+    } else {
+      // PC版・タブレット版ではSwiperを破棄
+      if (swiper) {
+        swiper.destroy(true, true);
+        swiper = null;
+      }
+    }
+  }
+
+  // 初期化時とリサイズ時にチェック
+  checkWidth();
+  window.addEventListener('resize', checkWidth);
 }

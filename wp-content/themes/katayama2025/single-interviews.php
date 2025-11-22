@@ -48,7 +48,7 @@ get_header();
                         <div class="md:col-span-1">
                             <?php if (has_post_thumbnail()) : ?>
                                 <div class="sticky top-8">
-                                    <?php the_post_thumbnail('large', ['class' => 'w-full rounded-lg shadow-lg']); ?>
+                                    <?php the_post_thumbnail('large', ['class' => 'w-full shadow-lg']); ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -84,9 +84,9 @@ get_header();
                             <h2 class="text-3xl font-bold mb-8 text-center">他の社員インタビュー</h2>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <?php while ($other_interviews->have_posts()) : $other_interviews->the_post(); ?>
-                                    <a href="<?php the_permalink(); ?>" class="group block bg-white rounded-lg shadow hover:shadow-xl transition-shadow duration-300">
+                                    <a href="<?php the_permalink(); ?>" class="group block bg-white shadow hover:shadow-xl transition-shadow duration-300">
                                         <?php if (has_post_thumbnail()) : ?>
-                                            <div class="aspect-w-3 aspect-h-4 overflow-hidden rounded-t-lg">
+                                            <div class="aspect-w-3 aspect-h-4 overflow-hidden">
                                                 <?php the_post_thumbnail('medium', ['class' => 'w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300']); ?>
                                             </div>
                                         <?php endif; ?>

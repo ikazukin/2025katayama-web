@@ -104,7 +104,7 @@ get_header();
                                     <div class="masonry-item fade-in-up">
                                         <a
                                             href="<?php echo esc_url($image['url']); ?>"
-                                            class="glightbox group block relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                                            class="glightbox group block relative overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
                                             data-gallery="works-gallery"
                                             data-glightbox="description: <?php echo esc_attr($caption ?: get_the_title()); ?>"
                                         >

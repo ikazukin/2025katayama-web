@@ -31,7 +31,7 @@ get_header();
                         <article id="post-<?php the_ID(); ?>" <?php post_class('news-item'); ?>>
                             <a
                                 href="<?php the_permalink(); ?>"
-                                class="block bg-white p-6 rounded-lg hover:shadow-lg transition-all duration-300 fade-in-up"
+                                class="block bg-white p-6 hover:shadow-lg transition-all duration-300 fade-in-up"
                             >
                                 <div class="flex flex-col md:flex-row md:items-center gap-4">
                                     <!-- 日付 -->

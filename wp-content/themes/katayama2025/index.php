@@ -5,7 +5,7 @@
         <?php if (have_posts()): ?>
             <div class="posts-grid space-y-8">
                 <?php while (have_posts()): the_post(); ?>
-                    <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white rounded-lg shadow-lg overflow-hidden'); ?>>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white shadow-lg overflow-hidden'); ?>>
                         <?php if (has_post_thumbnail()): ?>
                             <a href="<?php the_permalink(); ?>">
                                 <?php the_post_thumbnail('large', ['class' => 'w-full h-64 object-cover']); ?>

@@ -1,17 +1,24 @@
-const defaultConfig = require('@wordpress/scripts/config/webpack.config');
-const path = require('path');
+import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
 
-module.exports = {
+const require = createRequire(import.meta.url);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+
+export default {
   ...defaultConfig,
   entry: {
-    'gallery-carousel/index': path.resolve(
-      process.cwd(),
+    'gallery-carousel/index': resolve(
+      __dirname,
       'blocks',
       'gallery-carousel',
       'index.js'
     ),
-    'before-after/index': path.resolve(
-      process.cwd(),
+    'before-after/index': resolve(
+      __dirname,
       'blocks',
       'before-after',
       'index.js'

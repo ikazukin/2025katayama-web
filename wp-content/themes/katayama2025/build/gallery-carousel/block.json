@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "katayama/gallery-carousel",
+  "title": "カルーセルギャラリー（施工実績）",
+  "category": "katayama-works",
+  "icon": "images-alt2",
+  "description": "複数の画像をカルーセル（スライドショー）形式で表示します",
+  "keywords": ["gallery", "carousel", "slider", "ギャラリー", "カルーセル", "施工写真"],
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "html": false
+  },
+  "attributes": {
+    "images": {
+      "type": "array",
+      "default": []
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": true
+    },
+    "speed": {
+      "type": "number",
+      "default": 3000
+    },
+    "showThumbnails": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css"
+}

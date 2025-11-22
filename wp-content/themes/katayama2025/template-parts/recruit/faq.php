@@ -22,7 +22,7 @@ if (!$faq) return;
 
         <div class="max-w-4xl mx-auto space-y-4">
             <?php foreach ($faq as $index => $item): ?>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden fade-in-up" style="animation-delay: <?php echo esc_attr($index * 0.05); ?>s;">
+                <div class="bg-white shadow-md overflow-hidden fade-in-up" style="animation-delay: <?php echo esc_attr($index * 0.05); ?>s;">
                     <!-- アコーディオンヘッダー -->
                     <button
                         class="faq-toggle w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 transition-colors"

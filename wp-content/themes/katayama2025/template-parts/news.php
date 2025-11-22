@@ -25,7 +25,7 @@ if (!$news_posts->have_posts()) return;
 
         <div class="space-y-4">
             <?php while ($news_posts->have_posts()): $news_posts->the_post(); ?>
-                <a href="<?php the_permalink(); ?>" class="block bg-white p-6 rounded-lg hover:shadow-lg transition-shadow fade-in-up">
+                <a href="<?php the_permalink(); ?>" class="block bg-white/90 backdrop-blur-sm p-6 hover:shadow-lg transition-shadow fade-in-up">
                     <div class="flex flex-col md:flex-row md:items-center gap-4">
                         <time class="text-gray-500 text-sm whitespace-nowrap">
                             <?php echo get_the_date('Y.m.d'); ?>

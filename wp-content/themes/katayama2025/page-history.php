@@ -11,82 +11,179 @@ get_header();
 
     <?php while (have_posts()) : the_post(); ?>
 
-        <!-- Hero Section -->
-        <section class="history-hero">
-            <?php
-            $hero_image = get_field('hero_image');
-            if ($hero_image) :
-            ?>
-                <div class="history-hero__image" style="background-image: url('<?php echo esc_url($hero_image['url']); ?>');">
-                    <div class="history-hero__overlay"></div>
-                </div>
-            <?php endif; ?>
+        <!-- Hero Section - Rebita Minimal Style -->
+        <section class="history-hero-rebita">
+            <div class="history-hero-rebita__container">
+                <div class="history-hero-rebita__content">
+                    <?php
+                    $hero_title = get_field('hero_title');
+                    $hero_subtitle = get_field('hero_subtitle');
+                    ?>
 
-            <div class="container">
-                <div class="history-hero__content">
-                    <h1 class="history-hero__title">
-                        <?php
-                        $hero_title = get_field('hero_title');
-                        echo $hero_title ? esc_html($hero_title) : 'カタヤマの歩み';
-                        ?>
+                    <!-- 年号を大きく表示 -->
+                    <div class="history-hero-rebita__year" data-aos="fade-up">
+                        <span class="year-start">1985</span>
+                        <span class="year-separator">—</span>
+                        <span class="year-current">2025</span>
+                    </div>
+
+                    <!-- メインタイトル -->
+                    <h1 class="history-hero-rebita__title" data-aos="fade-up" data-aos-delay="200">
+                        <?php echo $hero_title ? esc_html($hero_title) : 'カタヤマの歩み'; ?>
                     </h1>
 
-                    <?php
-                    $hero_subtitle = get_field('hero_subtitle');
-                    if ($hero_subtitle) :
-                    ?>
-                        <div class="history-hero__subtitle">
+                    <!-- サブタイトル -->
+                    <?php if ($hero_subtitle) : ?>
+                        <div class="history-hero-rebita__subtitle" data-aos="fade-up" data-aos-delay="400">
                             <?php echo nl2br(esc_html($hero_subtitle)); ?>
                         </div>
                     <?php endif; ?>
+
+                    <!-- スクロールダウンヒント -->
+                    <div class="history-hero-rebita__scroll" data-aos="fade-up" data-aos-delay="600">
+                        <span class="scroll-text">SCROLL</span>
+                        <span class="scroll-line"></span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Timeline Section -->
-        <section class="history-timeline">
-            <div class="container">
+        <!-- Timeline Section - Rebita Style -->
+        <section class="history-timeline-rebita">
+            <div class="container-rebita">
                 <?php
                 $timeline = get_field('timeline');
                 if ($timeline) :
+                    // 年ごとにグループ化
+                    $grouped_timeline = [];
+                    foreach ($timeline as $event) {
+                        $year = $event['year'];
+                        if (!isset($grouped_timeline[$year])) {
+                            $grouped_timeline[$year] = [];
+                        }
+                        $grouped_timeline[$year][] = $event;
+                    }
                 ?>
-                    <div class="timeline">
-                        <div class="timeline__line"></div>
+                    <div class="timeline-rebita">
+                        <?php
+                        $year_index = 0;
+                        foreach ($grouped_timeline as $year => $events) :
+                            $is_even = ($year_index % 2 === 0);
+                            $year_index++;
+                        ?>
+                            <div class="timeline-rebita__year-group <?php echo $is_even ? 'layout-left' : 'layout-right'; ?>"
+                                 data-year="<?php echo esc_attr($year); ?>">
 
-                        <?php foreach ($timeline as $index => $event) : ?>
-                            <div class="timeline__item <?php echo $event['milestone'] ? 'timeline__item--milestone' : ''; ?>"
-                                 data-aos="fade-up"
-                                 data-aos-delay="<?php echo ($index % 5) * 100; ?>">
+                                <!-- 年の表示とイベントタイトル -->
+                                <div class="timeline-rebita__year-label"
+                                     data-aos="<?php echo $is_even ? 'fade-right' : 'fade-left'; ?>"
+                                     data-aos-duration="800">
+                                    <h2 class="year-number"><?php echo esc_html($year); ?></h2>
 
-                                <div class="timeline__date">
-                                    <span class="timeline__year"><?php echo esc_html($event['year']); ?></span>
-                                    <?php if (!empty($event['month'])) : ?>
-                                        <span class="timeline__month"><?php echo esc_html($event['month']); ?>月</span>
-                                    <?php endif; ?>
+                                    <!-- イベントタイトルと説明リスト（年号の下） -->
+                                    <div class="event-titles-list">
+                                        <?php foreach ($events as $event) : ?>
+                                            <div class="event-title-item <?php echo $event['milestone'] ? 'is-milestone' : ''; ?>">
+                                                <div class="event-header">
+                                                    <?php if (!empty($event['month'])) : ?>
+                                                        <span class="event-month-inline"><?php echo esc_html($event['month']); ?>月</span>
+                                                    <?php endif; ?>
+                                                    <span class="event-title-text"><?php echo esc_html($event['event_title']); ?></span>
+                                                </div>
+                                                <?php if (!empty($event['event_description'])) : ?>
+                                                    <div class="event-description-inline">
+                                                        <?php echo nl2br(esc_html($event['event_description'])); ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
 
-                                <div class="timeline__dot <?php echo $event['milestone'] ? 'timeline__dot--milestone' : ''; ?>">
-                                    <?php if ($event['milestone']) : ?>
-                                        <span class="timeline__star">⭐</span>
-                                    <?php endif; ?>
-                                </div>
+                                <!-- 中央：タイムライン線 -->
+                                <div class="timeline-rebita__line"></div>
 
-                                <div class="timeline__content">
-                                    <h3 class="timeline__title"><?php echo esc_html($event['event_title']); ?></h3>
+                                <!-- 画像のみ -->
+                                <div class="timeline-rebita__events">
+                                    <?php foreach ($events as $index => $event) : ?>
+                                        <div class="timeline-rebita__event <?php echo $event['milestone'] ? 'is-milestone' : ''; ?>"
+                                             data-aos="fade-up"
+                                             data-aos-delay="<?php echo $index * 100; ?>"
+                                             data-aos-duration="600">
 
-                                    <?php if (!empty($event['event_description'])) : ?>
-                                        <div class="timeline__description">
-                                            <?php echo nl2br(esc_html($event['event_description'])); ?>
+                                            <?php
+                                            // 画像表示（大きく表示）
+                                            $event_gallery = !empty($event['event_gallery']) ? $event['event_gallery'] : [];
+                                            $event_grid_gallery = !empty($event['event_grid_gallery']) ? $event['event_grid_gallery'] : [];
+                                            $event_image = !empty($event['event_image']) ? $event['event_image'] : null;
+
+                                            // プレースホルダー画像URL（画像がない場合のデフォルト）
+                                            $placeholder_image = 'https://picsum.photos/1200/800?random=' . $event['year'];
+
+                                            // 画像IDから画像URLを取得する関数
+                                            if ($event_image && is_numeric($event_image)) {
+                                                $event_image = wp_get_attachment_image_src($event_image, 'full');
+                                                $event_image_url = $event_image ? $event_image[0] : null;
+                                            } elseif (is_array($event_image) && isset($event_image['url'])) {
+                                                $event_image_url = $event_image['url'];
+                                            } else {
+                                                $event_image_url = null;
+                                            }
+
+                                            // 3列グリッド表示
+                                            if (!empty($event_grid_gallery)) :
+                                            ?>
+                                                <div class="event-image-large event-grid-gallery">
+                                                    <?php foreach ($event_grid_gallery as $image) : ?>
+                                                        <div class="grid-item">
+                                                            <img src="<?php echo esc_url($image['sizes']['large']); ?>"
+                                                                 alt="<?php echo esc_attr($image['alt']); ?>"
+                                                                 loading="lazy"
+                                                                 class="glightbox"
+                                                                 data-gallery="event-<?php echo esc_attr($event['year']); ?>">
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            <?php elseif (!empty($event_gallery) && count($event_gallery) > 1) : ?>
+                                                <!-- 複数画像：Swiperカルーセル -->
+                                                <div class="event-image-large event-carousel swiper">
+                                                    <div class="swiper-wrapper">
+                                                        <?php foreach ($event_gallery as $image) : ?>
+                                                            <div class="swiper-slide">
+                                                                <img src="<?php echo esc_url($image['sizes']['large']); ?>"
+                                                                     alt="<?php echo esc_attr($image['alt']); ?>"
+                                                                     loading="lazy">
+                                                            </div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                    <div class="swiper-pagination"></div>
+                                                    <div class="swiper-button-prev"></div>
+                                                    <div class="swiper-button-next"></div>
+                                                </div>
+                                            <?php elseif (!empty($event_gallery) && count($event_gallery) === 1) : ?>
+                                                <!-- 単一画像（ギャラリーに1枚） -->
+                                                <div class="event-image-large">
+                                                    <img src="<?php echo esc_url($event_gallery[0]['url']); ?>"
+                                                         alt="<?php echo esc_attr($event_gallery[0]['alt']); ?>"
+                                                         loading="lazy">
+                                                </div>
+                                            <?php elseif ($event_image_url) : ?>
+                                                <!-- 単一画像（IDまたは配列） -->
+                                                <div class="event-image-large">
+                                                    <img src="<?php echo esc_url($event_image_url); ?>"
+                                                         alt="<?php echo esc_attr($event['event_title']); ?>"
+                                                         loading="lazy">
+                                                </div>
+                                            <?php elseif ($event['milestone']) : ?>
+                                                <!-- マイルストーンイベントにはプレースホルダー画像を表示 -->
+                                                <div class="event-image-large event-image--placeholder">
+                                                    <img src="<?php echo esc_url($placeholder_image); ?>"
+                                                         alt="<?php echo esc_attr($event['event_title']); ?>"
+                                                         loading="lazy">
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                    <?php endif; ?>
-
-                                    <?php if (!empty($event['event_image'])) : ?>
-                                        <div class="timeline__image">
-                                            <img src="<?php echo esc_url($event['event_image']['sizes']['medium']); ?>"
-                                                 alt="<?php echo esc_attr($event['event_image']['alt']); ?>"
-                                                 loading="lazy">
-                                        </div>
-                                    <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>

@@ -22,7 +22,7 @@ if (!$recruit_jobs) return;
 
         <div class="max-w-5xl mx-auto space-y-8">
             <?php foreach ($recruit_jobs as $index => $job): ?>
-                <div class="bg-gray-50 rounded-lg shadow-md overflow-hidden fade-in-up" style="animation-delay: <?php echo esc_attr($index * 0.1); ?>s;">
+                <div class="bg-gray-50 shadow-md overflow-hidden fade-in-up" style="animation-delay: <?php echo esc_attr($index * 0.1); ?>s;">
                     <!-- ヘッダー -->
                     <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">

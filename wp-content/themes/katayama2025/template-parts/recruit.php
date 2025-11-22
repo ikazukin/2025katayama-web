@@ -41,7 +41,7 @@ $btn2_link = get_recruit_data('recruit_btn2_link', 'recruit_btn2_link', $page_id
 if (!$title && !$text) return;
 ?>
 
-<section class="recruit-section animate-on-scroll py-16 md:py-24 bg-gradient-to-br from-blue-50 to-blue-100">
+<section class="recruit-section animate-on-scroll py-16 md:py-24">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- テキストエリア -->
@@ -83,7 +83,7 @@ if (!$title && !$text) return;
                             <img
                                 src="<?php echo esc_url($image1['url']); ?>"
                                 alt="<?php echo esc_attr($image1['alt'] ?: '採用情報画像1'); ?>"
-                                class="w-full h-64 md:h-80 object-cover rounded-lg shadow-xl"
+                                class="w-full h-64 md:h-80 object-cover shadow-xl"
                                 loading="lazy"
                                 width="<?php echo esc_attr($image1['width']); ?>"
                                 height="<?php echo esc_attr($image1['height']); ?>"
@@ -96,7 +96,7 @@ if (!$title && !$text) return;
                             <img
                                 src="<?php echo esc_url($image2['url']); ?>"
                                 alt="<?php echo esc_attr($image2['alt'] ?: '採用情報画像2'); ?>"
-                                class="w-full h-64 md:h-80 object-cover rounded-lg shadow-xl"
+                                class="w-full h-64 md:h-80 object-cover shadow-xl"
                                 loading="lazy"
                                 width="<?php echo esc_attr($image2['width']); ?>"
                                 height="<?php echo esc_attr($image2['height']); ?>"

@@ -1,0 +1,36 @@
+<svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- グラデーション定義 -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#004B9A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0066CC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#004B9A;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- パターン：建設現場をイメージした幾何学模様 -->
+    <pattern id="constructionPattern" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="200" height="200" fill="none"/>
+      <line x1="0" y1="0" x2="200" y2="200" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+      <line x1="200" y1="0" x2="0" y2="200" stroke="rgba(255,255,255,0.05)" stroke-width="2"/>
+      <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
+    </pattern>
+  </defs>
+  
+  <!-- 背景グラデーション -->
+  <rect width="1920" height="1080" fill="url(#bgGradient)"/>
+  
+  <!-- パターンオーバーレイ -->
+  <rect width="1920" height="1080" fill="url(#constructionPattern)"/>
+  
+  <!-- 装飾的な円（左下） -->
+  <circle cx="200" cy="900" r="400" fill="rgba(255,255,255,0.03)"/>
+  
+  <!-- 装飾的な円（右上） -->
+  <circle cx="1720" cy="180" r="350" fill="rgba(255,255,255,0.03)"/>
+  
+  <!-- 装飾的なライン -->
+  <line x1="0" y1="540" x2="1920" y2="540" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  
+  <!-- テキストエリア（中央を少し明るく） -->
+  <ellipse cx="960" cy="540" rx="600" ry="300" fill="rgba(255,255,255,0.02)"/>
+</svg>

@@ -33,10 +33,8 @@ if (!$jobs) return;
                             <img
                                 src="<?php echo esc_url($job['image']['url']); ?>"
                                 alt="<?php echo esc_attr($job['image']['alt'] ?: $job['name']); ?>"
-                                class="w-full h-[300px] md:h-[400px] object-cover rounded-lg shadow-lg"
+                                class="w-full h-[300px] md:h-[400px] object-cover shadow-lg"
                                 loading="lazy"
-                                width="<?php echo esc_attr($job['image']['width']); ?>"
-                                height="<?php echo esc_attr($job['image']['height']); ?>"
                             >
                         </div>
                     <?php endif; ?>
@@ -55,7 +53,7 @@ if (!$jobs) return;
                         <?php endif; ?>
 
                         <?php if (!empty($job['appeal'])): ?>
-                            <div class="bg-blue-50 p-6 rounded-lg">
+                            <div class="bg-blue-50 p-6">
                                 <h5 class="text-lg font-semibold mb-2 text-blue-900">やりがい</h5>
                                 <p class="text-gray-700 leading-relaxed whitespace-pre-line">
                                     <?php echo esc_html($job['appeal']); ?>

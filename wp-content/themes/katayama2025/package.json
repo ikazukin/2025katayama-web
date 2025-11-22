@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:blocks": "wp-scripts build",
+    "build:blocks": "wp-scripts build && cp blocks/*/block.json build/*/",
     "start:blocks": "wp-scripts start"
   },
   "devDependencies": {
@@ -28,6 +28,6 @@
     "@dnd-kit/utilities": "^3.2.2",
     "glightbox": "^3.3.0",
     "gsap": "^3.13.0",
-    "swiper": "^11.1.0"
+    "swiper": "^11.2.10"
   }
 }

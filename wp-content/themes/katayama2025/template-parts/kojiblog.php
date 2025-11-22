@@ -14,7 +14,7 @@ $blog_posts = new WP_Query([
 if (!$blog_posts->have_posts()) return;
 ?>
 
-<section class="kojiblog-section animate-on-scroll py-16 md:py-24 bg-gray-50">
+<section class="kojiblog-section animate-on-scroll py-16 md:py-24">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-8 fade-in-up">
             <h2 class="text-3xl md:text-4xl font-bold">工事部ブログ</h2>
@@ -28,13 +28,13 @@ if (!$blog_posts->have_posts()) return;
                 <article class="blog-card fade-in-up">
                     <a href="<?php the_permalink(); ?>" class="block group">
                         <?php if (has_post_thumbnail()): ?>
-                            <div class="aspect-square overflow-hidden rounded-lg mb-3">
+                            <div class="aspect-square overflow-hidden mb-3">
                                 <?php the_post_thumbnail('medium', [
                                     'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-300'
                                 ]); ?>
                             </div>
                         <?php else: ?>
-                            <div class="aspect-square bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
+                            <div class="aspect-square bg-gray-200 mb-3 flex items-center justify-center">
                                 <span class="text-gray-400 text-sm">No Image</span>
                             </div>
                         <?php endif; ?>

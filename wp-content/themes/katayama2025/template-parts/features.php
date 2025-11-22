@@ -38,7 +38,7 @@ if (!$has_customizer_data) {
 if (empty($features)) return;
 ?>
 
-<section class="features-section animate-on-scroll py-16 md:py-24 bg-gray-50">
+<section class="features-section animate-on-scroll py-16 md:py-24" style="display: none;">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">40年の歩みが築いた、確かな信頼と技術。</h2>
@@ -50,7 +50,7 @@ if (empty($features)) return;
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <?php foreach ($features as $index => $feature): ?>
-                <div class="feature-card card-hover bg-white p-8 rounded-lg shadow-lg transition-all duration-300 flex flex-col min-h-[280px]">
+                <div class="feature-card card-hover bg-white/90 backdrop-blur-sm p-8 shadow-lg transition-all duration-300 flex flex-col min-h-[280px]">
                     <?php if ($feature['icon']): ?>
                         <div class="mb-6 flex-shrink-0">
                             <img

@@ -25,7 +25,7 @@ if (!$interviews) return;
 
         <div class="space-y-16">
             <?php foreach ($interviews as $index => $interview): ?>
-                <div class="bg-white rounded-lg shadow-xl overflow-hidden fade-in-up" style="animation-delay: <?php echo esc_attr($index * 0.1); ?>s;">
+                <div class="bg-white shadow-xl overflow-hidden fade-in-up" style="animation-delay: <?php echo esc_attr($index * 0.1); ?>s;">
                     <!-- プロフィール -->
                     <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8">
                         <div class="flex flex-col md:flex-row items-center gap-6">
@@ -35,8 +35,6 @@ if (!$interviews) return;
                                         src="<?php echo esc_url($interview['photo']['url']); ?>"
                                         alt="<?php echo esc_attr($interview['name']); ?>"
                                         class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-                                        width="96"
-                                        height="96"
                                     >
                                 </div>
                             <?php endif; ?>

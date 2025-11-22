@@ -17,19 +17,20 @@ get_header();
     <?php while (have_posts()): the_post(); ?>
 
         <!-- Hero Section -->
-        <section class="hero-section relative h-[60vh] md:h-[70vh] flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-800 text-white overflow-hidden">
-            <?php
-            $hero_bg = get_field('hero_background');
-            if ($hero_bg):
-            ?>
+        <?php
+        $hero_bg = get_field('hero_background');
+        $bg_class = $hero_bg ? 'bg-gray-900' : 'bg-gradient-to-br from-blue-600 to-blue-800';
+        ?>
+        <section class="hero-section relative h-[60vh] md:h-[70vh] flex items-center justify-center <?php echo $bg_class; ?> text-white overflow-hidden">
+            <?php if ($hero_bg): ?>
                 <div class="absolute inset-0 z-0">
                     <img
                         src="<?php echo esc_url($hero_bg['url']); ?>"
                         alt="<?php echo esc_attr($hero_bg['alt'] ?: '新卒採用ヒーロー画像'); ?>"
-                        class="w-full h-full object-cover opacity-30"
-                        width="<?php echo esc_attr($hero_bg['width']); ?>"
-                        height="<?php echo esc_attr($hero_bg['height']); ?>"
+                        class="w-full h-full object-cover opacity-70"
                     >
+                    <!-- 暗めのオーバーレイでテキストを読みやすく -->
+                    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50"></div>
                 </div>
             <?php endif; ?>
 

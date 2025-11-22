@@ -26,15 +26,13 @@ if (!$business_list) return;
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <?php foreach ($business_list as $index => $business): ?>
-                <div class="bg-white p-8 rounded-lg shadow-md fade-in-up hover:shadow-xl transition-shadow" style="animation-delay: <?php echo esc_attr($index * 0.1); ?>s;">
+                <div class="bg-white p-8 shadow-md fade-in-up hover:shadow-xl transition-shadow" style="animation-delay: <?php echo esc_attr($index * 0.1); ?>s;">
                     <?php if (!empty($business['icon'])): ?>
                         <div class="mb-4">
                             <img
                                 src="<?php echo esc_url($business['icon']['url']); ?>"
                                 alt="<?php echo esc_attr($business['icon']['alt'] ?: $business['name']); ?>"
                                 class="w-16 h-16 object-contain"
-                                width="64"
-                                height="64"
                             >
                         </div>
                     <?php endif; ?>

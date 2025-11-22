@@ -39,10 +39,8 @@ if (!$slogan && !$message) return;
                     <img
                         src="<?php echo esc_url($image['url']); ?>"
                         alt="<?php echo esc_attr($image['alt'] ?: '企業イメージ'); ?>"
-                        class="w-full h-[400px] md:h-[500px] object-cover rounded-lg shadow-xl"
+                        class="w-full h-[400px] md:h-[500px] object-cover shadow-xl"
                         loading="lazy"
-                        width="<?php echo esc_attr($image['width']); ?>"
-                        height="<?php echo esc_attr($image['height']); ?>"
                     >
                 </div>
             <?php endif; ?>

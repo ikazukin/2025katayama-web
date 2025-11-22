@@ -164,6 +164,28 @@ function register_works_cpt() {
         'menu_icon' => 'dashicons-hammer',
         'rewrite' => ['slug' => 'works'],
         'menu_position' => 5,
+        // ブロックテンプレート: 新規投稿時にデフォルトで配置されるブロック
+        'template' => [
+            ['core/heading', [
+                'content' => '施工概要',
+                'level' => 2,
+            ]],
+            ['core/paragraph', [
+                'placeholder' => 'この施工の概要や特徴を入力してください（例：外壁塗装、防水工事、築年数など）',
+            ]],
+            ['core/heading', [
+                'content' => 'ビフォーアフター',
+                'level' => 2,
+            ]],
+            ['katayama/before-after', []],
+            ['core/heading', [
+                'content' => '施工写真',
+                'level' => 2,
+            ]],
+            ['katayama/gallery-carousel', []],
+        ],
+        // テンプレートロック: false=自由に編集可能、all=固定、insert=追加不可
+        'template_lock' => false,
     ]);
 
     // タクソノミー: 工事種別
@@ -345,8 +367,8 @@ function register_acf_hero_fields() {
                     'label' => 'Poster画像（LCP用）',
                     'name' => 'hero_poster',
                     'type' => 'image',
-                    'instructions' => '動画の最初のフレームとして表示される画像（LCP最適化のため必須）',
-                    'required' => 1,
+                    'instructions' => '動画の最初のフレームとして表示される画像（推奨）',
+                    'required' => 0,
                     'return_format' => 'array',
                     'preview_size' => 'medium',
                 ],
@@ -510,7 +532,8 @@ function register_acf_services_fields() {
                     'type' => 'textarea',
                     'instructions' => 'セクションの説明文',
                     'rows' => 3,
-                    'default_value' => '大規模修繕で培った技術と信頼をもとに、建物のライフサイクルをトータルに支える事業を展開しています。',
+                    'default_value' => '大規模修繕で培った技術と信頼をもとに、
+建物のライフサイクルをトータルに支える事業を展開しています。',
                 ],
                 [
                     'key' => 'field_services_cards',
@@ -1672,6 +1695,237 @@ function katayama_customize_register($wp_customize) {
         'section' => 'recruit_section',
         'type' => 'url',
     ]);
+
+    // ============================================
+    // トップページ - 背景画像
+    // ============================================
+    $wp_customize->add_section('front_page_background_section', [
+        'title' => '背景画像',
+        'panel' => 'front_page_settings',
+        'priority' => 5,
+    ]);
+
+    $wp_customize->add_setting('front_page_background_image', [
+        'sanitize_callback' => 'absint',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'front_page_background_image', [
+        'label' => '背景画像',
+        'description' => 'トップページ全体の背景画像（薄く表示されます）',
+        'section' => 'front_page_background_section',
+        'mime_type' => 'image',
+    ]));
+
+    // ============================================
+    // トップページ - Services Section（事業分岐セクション）
+    // ============================================
+    $wp_customize->add_section('services_section', [
+        'title' => 'Services Section（事業分岐）',
+        'panel' => 'front_page_settings',
+        'priority' => 20,
+    ]);
+
+    // セクションタイトル
+    $wp_customize->add_setting('services_section_title', [
+        'default' => 'カタヤマの主な事業領域',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_section_title', [
+        'label' => 'セクションタイトル',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    // セクション説明文
+    $wp_customize->add_setting('services_section_description', [
+        'default' => '大規模修繕で培った技術と信頼をもとに、
+建物のライフサイクルをトータルに支える事業を展開しています。',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ]);
+    $wp_customize->add_control('services_section_description', [
+        'label' => 'セクション説明文',
+        'section' => 'services_section',
+        'type' => 'textarea',
+    ]);
+
+    // --- カード1（大規模修繕） ---
+    $wp_customize->add_setting('services_card_1_title', [
+        'default' => '大規模修繕工事',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_1_title', [
+        'label' => 'カード1: タイトル',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_1_catchcopy', [
+        'default' => '建物の未来を守る、確かな技術',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_1_catchcopy', [
+        'label' => 'カード1: キャッチコピー',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_1_description', [
+        'default' => 'マンション・公共施設の外壁・防水・設備改修まで、豊富な実績で対応します。',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ]);
+    $wp_customize->add_control('services_card_1_description', [
+        'label' => 'カード1: 説明文',
+        'section' => 'services_section',
+        'type' => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('services_card_1_image', [
+        'sanitize_callback' => 'absint',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'services_card_1_image', [
+        'label' => 'カード1: 画像',
+        'section' => 'services_section',
+        'mime_type' => 'image',
+    ]));
+
+    $wp_customize->add_setting('services_card_1_video', [
+        'sanitize_callback' => 'absint',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'services_card_1_video', [
+        'label' => 'カード1: 動画（オプション）',
+        'section' => 'services_section',
+        'mime_type' => 'video',
+    ]));
+
+    $wp_customize->add_setting('services_card_1_cta_text', [
+        'default' => '無料見積もり・相談',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_1_cta_text', [
+        'label' => 'カード1: CTAボタンテキスト',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_1_cta_link', [
+        'default' => '/repair/',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('services_card_1_cta_link', [
+        'label' => 'カード1: CTAボタンリンク',
+        'section' => 'services_section',
+        'type' => 'url',
+    ]);
+
+    // カード1: 2つ目のボタン
+    $wp_customize->add_setting('services_card_1_cta_text_2', [
+        'default' => 'カタヤマの大規模修繕について',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_1_cta_text_2', [
+        'label' => 'カード1: 2つ目のボタンテキスト',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_1_cta_link_2', [
+        'default' => '/repair/',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('services_card_1_cta_link_2', [
+        'label' => 'カード1: 2つ目のボタンリンク',
+        'section' => 'services_section',
+        'type' => 'url',
+    ]);
+
+    // --- カード2（リフォーム） ---
+    $wp_customize->add_setting('services_card_2_title', [
+        'default' => 'リフォーム',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_2_title', [
+        'label' => 'カード2: タイトル',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_2_catchcopy', [
+        'default' => '住まいに新しい価値を',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_2_catchcopy', [
+        'label' => 'カード2: キャッチコピー',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_2_description', [
+        'default' => '内装・外装リフォームから防水・外壁改修まで、快適で美しい空間を提供。',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ]);
+    $wp_customize->add_control('services_card_2_description', [
+        'label' => 'カード2: 説明文',
+        'section' => 'services_section',
+        'type' => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('services_card_2_image', [
+        'sanitize_callback' => 'absint',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'services_card_2_image', [
+        'label' => 'カード2: 画像',
+        'section' => 'services_section',
+        'mime_type' => 'image',
+    ]));
+
+    $wp_customize->add_setting('services_card_2_video', [
+        'sanitize_callback' => 'absint',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'services_card_2_video', [
+        'label' => 'カード2: 動画（オプション）',
+        'section' => 'services_section',
+        'mime_type' => 'video',
+    ]));
+
+    $wp_customize->add_setting('services_card_2_cta_text', [
+        'default' => '施工例を見る',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_2_cta_text', [
+        'label' => 'カード2: CTAボタンテキスト',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_2_cta_link', [
+        'default' => '/works/',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('services_card_2_cta_link', [
+        'label' => 'カード2: CTAボタンリンク',
+        'section' => 'services_section',
+        'type' => 'url',
+    ]);
+
+    // カード2: 2つ目のボタン
+    $wp_customize->add_setting('services_card_2_cta_text_2', [
+        'default' => 'カタヤマのリフォームについて',
+        'sanitize_callback' => 'sanitize_text_field',
+    ]);
+    $wp_customize->add_control('services_card_2_cta_text_2', [
+        'label' => 'カード2: 2つ目のボタンテキスト',
+        'section' => 'services_section',
+        'type' => 'text',
+    ]);
+
+    $wp_customize->add_setting('services_card_2_cta_link_2', [
+        'default' => '/reform/',
+        'sanitize_callback' => 'esc_url_raw',
+    ]);
+    $wp_customize->add_control('services_card_2_cta_link_2', [
+        'label' => 'カード2: 2つ目のボタンリンク',
+        'section' => 'services_section',
+        'type' => 'url',
+    ]);
 }
 add_action('customize_register', 'katayama_customize_register');
 
@@ -2129,10 +2383,10 @@ function katayama_register_works_blocks_v2() {
     $theme_dir = get_template_directory();
 
     // gallery-carouselブロック
-    register_block_type( $theme_dir . '/blocks/gallery-carousel' );
+    register_block_type( $theme_dir . '/build/gallery-carousel' );
 
     // before-afterブロック
-    register_block_type( $theme_dir . '/blocks/before-after' );
+    register_block_type( $theme_dir . '/build/before-after' );
 }
 add_action( 'init', 'katayama_register_works_blocks_v2' );
 
@@ -2206,3 +2460,215 @@ function katayama_register_works_blocks() {
 }
 add_action('enqueue_block_editor_assets', 'katayama_register_works_blocks');
 */
+
+/**
+ * ACF Field Group: Front Page Background Image
+ * フロントページ固定背景画像設定
+ */
+function register_acf_front_page_background_field() {
+    if (function_exists('acf_add_local_field_group')) {
+        acf_add_local_field_group([
+            'key' => 'group_front_page_background',
+            'title' => 'フロントページ背景画像設定',
+            'fields' => [
+                [
+                    'key' => 'field_front_page_background',
+                    'label' => '背景画像',
+                    'name' => 'front_page_background',
+                    'type' => 'image',
+                    'instructions' => 'トップページの背景に固定表示される画像（推奨サイズ: 1920x1080px以上）<br>背景は薄く表示され、スクロール時も固定されます（パララックス効果）',
+                    'required' => 0,
+                    'return_format' => 'array',
+                    'preview_size' => 'medium',
+                    'library' => 'all',
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'page_type',
+                        'operator' => '==',
+                        'value' => 'front_page',
+                    ],
+                ],
+            ],
+            'menu_order' => 5,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+        ]);
+    }
+}
+add_action('acf/init', 'register_acf_front_page_background_field');
+
+/**
+ * ACF Field Group: Contact Page LINE Settings
+ * お問い合わせページ - LINE公式アカウント設定
+ */
+function register_acf_contact_page_line_fields() {
+    if (function_exists('acf_add_local_field_group')) {
+        acf_add_local_field_group([
+            'key' => 'group_contact_line',
+            'title' => 'LINE公式アカウント設定',
+            'fields' => [
+                [
+                    'key' => 'field_contact_line_url',
+                    'label' => 'LINE公式アカウントURL',
+                    'name' => 'contact_line_url',
+                    'type' => 'url',
+                    'instructions' => 'LINE公式アカウントの友だち追加URL（例: https://line.me/R/ti/p/@xxxxx）',
+                    'placeholder' => 'https://line.me/R/ti/p/@xxxxx',
+                ],
+                [
+                    'key' => 'field_contact_line_qr',
+                    'label' => 'LINE QRコード画像',
+                    'name' => 'contact_line_qr',
+                    'type' => 'image',
+                    'instructions' => 'LINE公式アカウントのQRコード画像',
+                    'return_format' => 'array',
+                    'preview_size' => 'medium',
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'page',
+                        'operator' => '==',
+                        'value' => '43', // お問い合わせページID
+                    ],
+                ],
+            ],
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+        ]);
+    }
+}
+add_action('acf/init', 'register_acf_contact_page_line_fields');
+
+/**
+ * 沿革ページ用ACFフィールドグループを登録
+ */
+function register_acf_history_page_fields() {
+    if (function_exists('acf_add_local_field_group')) {
+        acf_add_local_field_group([
+            'key' => 'group_history_page',
+            'title' => '沿革ページ設定',
+            'fields' => [
+                // Hero Title
+                [
+                    'key' => 'field_hero_title',
+                    'label' => 'ヒーロータイトル',
+                    'name' => 'hero_title',
+                    'type' => 'text',
+                    'default_value' => 'カタヤマの歩み',
+                ],
+                // Hero Subtitle
+                [
+                    'key' => 'field_hero_subtitle',
+                    'label' => 'ヒーローサブタイトル',
+                    'name' => 'hero_subtitle',
+                    'type' => 'textarea',
+                    'rows' => 3,
+                ],
+                // Timeline Repeater
+                [
+                    'key' => 'field_timeline',
+                    'label' => 'タイムライン',
+                    'name' => 'timeline',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'イベントを追加',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_year',
+                            'label' => '年',
+                            'name' => 'year',
+                            'type' => 'text',
+                            'required' => 1,
+                            'wrapper' => ['width' => '25'],
+                        ],
+                        [
+                            'key' => 'field_month',
+                            'label' => '月',
+                            'name' => 'month',
+                            'type' => 'number',
+                            'min' => 1,
+                            'max' => 12,
+                            'wrapper' => ['width' => '25'],
+                        ],
+                        [
+                            'key' => 'field_milestone',
+                            'label' => 'マイルストーン',
+                            'name' => 'milestone',
+                            'type' => 'true_false',
+                            'message' => '重要な出来事',
+                            'wrapper' => ['width' => '25'],
+                        ],
+                        [
+                            'key' => 'field_event_title',
+                            'label' => 'イベントタイトル',
+                            'name' => 'event_title',
+                            'type' => 'text',
+                            'required' => 1,
+                        ],
+                        [
+                            'key' => 'field_event_description',
+                            'label' => 'イベント説明',
+                            'name' => 'event_description',
+                            'type' => 'textarea',
+                            'rows' => 3,
+                        ],
+                        [
+                            'key' => 'field_event_image',
+                            'label' => '単一画像（旧形式）',
+                            'name' => 'event_image',
+                            'type' => 'image',
+                            'return_format' => 'id',
+                            'preview_size' => 'medium',
+                            'instructions' => '1枚だけ表示する場合はこちら',
+                        ],
+                        [
+                            'key' => 'field_event_gallery',
+                            'label' => '画像ギャラリー（カルーセル用）',
+                            'name' => 'event_gallery',
+                            'type' => 'gallery',
+                            'return_format' => 'array',
+                            'preview_size' => 'medium',
+                            'insert' => 'append',
+                            'library' => 'all',
+                            'instructions' => '複数枚をカルーセル（横スクロール）で表示',
+                        ],
+                        [
+                            'key' => 'field_event_grid_gallery',
+                            'label' => 'グリッドギャラリー（3列表示）',
+                            'name' => 'event_grid_gallery',
+                            'type' => 'gallery',
+                            'return_format' => 'array',
+                            'preview_size' => 'medium',
+                            'insert' => 'append',
+                            'library' => 'all',
+                            'instructions' => '複数枚を3列グリッドで表示（Rebita風）',
+                        ],
+                    ],
+                ],
+            ],
+            'location' => [
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'page-history.php',
+                    ],
+                ],
+            ],
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+        ]);
+    }
+}
+add_action('acf/init', 'register_acf_history_page_fields');

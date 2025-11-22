@@ -15,7 +15,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<header class="site-header fixed top-0 left-0 right-0 z-50 bg-white shadow-md transition-all duration-300">
+<header class="site-header fixed top-0 left-0 right-0 z-50 bg-white shadow-sm transition-all duration-300">
     <div class="container mx-auto px-4">
         <div class="flex items-center justify-between h-20">
             <!-- ロゴ -->
@@ -79,6 +79,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (toggle && menu) {
         toggle.addEventListener('click', () => {
             menu.classList.toggle('hidden');
+        });
+    }
+
+    // スクロール時にヘッダーに背景を追加
+    const header = document.querySelector('.site-header');
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
     }
 });

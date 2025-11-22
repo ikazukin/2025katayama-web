@@ -14,65 +14,77 @@ $works_query = new WP_Query([
 if (!$works_query->have_posts()) return;
 ?>
 
-<section class="works-section animate-on-scroll py-16 md:py-24 bg-gray-50">
+<section class="works-section animate-on-scroll py-16 md:py-24">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">施工実績</h2>
             <p class="text-gray-600">これまでの実績をご紹介します</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php while ($works_query->have_posts()): $works_query->the_post(); ?>
-                <article class="works-card bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
-                    <a href="<?php the_permalink(); ?>" class="block">
-                        <?php if (has_post_thumbnail()): ?>
-                            <div class="aspect-[4/3] overflow-hidden">
-                                <?php the_post_thumbnail('works-thumbnail', [
-                                    'class' => 'w-full h-full object-cover hover:scale-110 transition-transform duration-500'
-                                ]); ?>
-                            </div>
-                        <?php else: ?>
-                            <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center">
-                                <span class="text-gray-400">No Image</span>
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="p-6">
-                            <?php
-                            $terms = get_the_terms(get_the_ID(), 'work_category');
-                            if ($terms && !is_wp_error($terms)):
-                            ?>
-                                <div class="mb-2">
-                                    <?php foreach ($terms as $term): ?>
-                                        <span class="inline-block bg-katayama-blue text-white text-xs px-2 py-1 rounded">
-                                            <?php echo esc_html($term->name); ?>
-                                        </span>
-                                    <?php endforeach; ?>
-                                </div>
-                            <?php endif; ?>
-
-                            <h3 class="text-xl font-bold mb-2 hover:text-katayama-blue transition-colors">
-                                <?php the_title(); ?>
-                            </h3>
-
-                            <?php
-                            $year = get_field('works_year');
-                            $address = get_field('works_address');
-                            if ($year || $address):
-                            ?>
-                                <div class="text-sm text-gray-600 space-y-1">
-                                    <?php if ($year): ?>
-                                        <div>完成年: <?php echo esc_html($year); ?>年</div>
+        <!-- スマホ版: Swiperカルーセル、PC版: グリッド表示 -->
+        <div class="works-swiper-wrapper">
+            <div class="works-swiper swiper">
+                <div class="swiper-wrapper">
+                    <?php while ($works_query->have_posts()): $works_query->the_post(); ?>
+                        <div class="swiper-slide">
+                            <article class="works-card bg-white/90 backdrop-blur-sm overflow-hidden shadow-lg hover:shadow-xl transition-shadow h-full">
+                                <a href="<?php the_permalink(); ?>" class="block h-full flex flex-col">
+                                    <?php if (has_post_thumbnail()): ?>
+                                        <div class="aspect-[4/3] overflow-hidden flex-shrink-0">
+                                            <?php the_post_thumbnail('works-thumbnail', [
+                                                'class' => 'w-full h-full object-cover hover:scale-110 transition-transform duration-500'
+                                            ]); ?>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="aspect-[4/3] bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                            <span class="text-gray-400">No Image</span>
+                                        </div>
                                     <?php endif; ?>
-                                    <?php if ($address): ?>
-                                        <div>場所: <?php echo esc_html($address); ?></div>
-                                    <?php endif; ?>
-                                </div>
-                            <?php endif; ?>
+
+                                    <div class="p-6 flex-grow">
+                                        <?php
+                                        $terms = get_the_terms(get_the_ID(), 'work_category');
+                                        if ($terms && !is_wp_error($terms)):
+                                        ?>
+                                            <div class="mb-2">
+                                                <?php foreach ($terms as $term): ?>
+                                                    <span class="inline-block bg-katayama-blue text-white text-xs px-2 py-1 rounded">
+                                                        <?php echo esc_html($term->name); ?>
+                                                    </span>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <h3 class="text-xl font-bold mb-2 hover:text-katayama-blue transition-colors">
+                                            <?php the_title(); ?>
+                                        </h3>
+
+                                        <?php
+                                        $year = get_field('works_year');
+                                        $address = get_field('works_address');
+                                        if ($year || $address):
+                                        ?>
+                                            <div class="text-sm text-gray-600 space-y-1">
+                                                <?php if ($year): ?>
+                                                    <div>完成年: <?php echo esc_html($year); ?>年</div>
+                                                <?php endif; ?>
+                                                <?php if ($address): ?>
+                                                    <div>場所: <?php echo esc_html($address); ?></div>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </a>
+                            </article>
                         </div>
-                    </a>
-                </article>
-            <?php endwhile; ?>
+                    <?php endwhile; ?>
+                </div>
+
+                <!-- Swiper ナビゲーション（スマホのみ表示） -->
+                <div class="swiper-pagination works-swiper-pagination"></div>
+                <div class="swiper-button-prev works-swiper-button-prev"></div>
+                <div class="swiper-button-next works-swiper-button-next"></div>
+            </div>
         </div>
 
         <div class="text-center mt-12">

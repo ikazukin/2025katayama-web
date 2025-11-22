@@ -33,8 +33,6 @@ if (!$benefits) return;
                                     src="<?php echo esc_url($benefit['icon']['url']); ?>"
                                     alt="<?php echo esc_attr($benefit['icon']['alt'] ?: $benefit['title']); ?>"
                                     class="w-12 h-12 object-contain"
-                                    width="48"
-                                    height="48"
                                 >
                             </div>
                         </div>

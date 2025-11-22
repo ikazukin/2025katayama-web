@@ -84,7 +84,7 @@ $works_query = new WP_Query($args);
                 <!-- グリッド表示 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <?php while ($works_query->have_posts()): $works_query->the_post(); ?>
-                        <article class="works-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                        <article class="works-card bg-white shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group">
                             <!-- サムネイル -->
                             <a href="<?php the_permalink(); ?>" class="block relative overflow-hidden aspect-[4/3]">
                                 <?php if (has_post_thumbnail()): ?>
